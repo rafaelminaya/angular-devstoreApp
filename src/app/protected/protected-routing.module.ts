@@ -15,6 +15,16 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'ventas',
+        loadChildren: () =>
+          import('./ventas/ventas.module').then((m) => m.VentasModule),
+      },
+      {
+        path: 'reportes',
+        loadChildren: () =>
+          import('./reportes/reportes.module').then((m) => m.ReportesModule),
+      },
+      {
         path: '**',
         redirectTo: 'consignaciones',
       },
