@@ -8,22 +8,13 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      {
-        path: 'registro-ventas',
-        component: RegistroVentasComponent,
-      },
+      { path: 'registro-ventas', component: RegistroVentasComponent },
       {
         path: 'liquidacion-proveedores',
         component: LiquidacionProveedoresComponent,
       },
-      {
-        path: 'kardex-por-producto',
-        component: KardexPorProductoComponent,
-      },
-      {
-        path: '**',
-        redirectTo: 'registro-ventas',
-      },
+      { path: 'kardex-por-producto', component: KardexPorProductoComponent },
+      { path: '**', redirectTo: 'registro-ventas' },
     ],
   },
 ];

@@ -14,17 +14,15 @@ export class BoletasVentaService {
   // CONSTRUCTOR
   constructor(private http: HttpClient) {}
   // MÉTODOS
-  getBoletasVenta(): Observable<BoletaVenta[]> {
+  getAll(): Observable<BoletaVenta[]> {
     return this.http.get<BoletaVenta[]>(`${this.baseUrl}/api/ventas`);
   }
 
-  anularBoletaVenta(id: number): Observable<any> {
+  anular(id: number): Observable<any> {
     return this.http
       .put<any>(`${this.baseUrl}/api/ventas/${id}/anular`, {})
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          console.log('error', err);
-          console.log('err.error', err.error);
           console.log('err.error.mensaje', err.error.mensaje);
 
           Swal.fire({

@@ -1,15 +1,16 @@
-import { Producto } from '../../consignaciones/interfaces/guia-remision.interface';
+import { Producto } from '../../consignaciones/interfaces/producto.interface';
+import { Cliente } from './cliente.interface';
 
 export interface BoletaVenta {
   id: number;
   numero: string;
   fechaEmision: Date;
+  baseImponible: number;
+  importeIgv: number;
+  total: number;
   eliminado: boolean;
   cliente: Cliente;
   boletaVentaDetalles: BoletaVentaDetalle[];
-  importeIgv: number;
-  baseImponible: number;
-  total: number;
 }
 
 export interface BoletaVentaDetalle {
@@ -17,18 +18,9 @@ export interface BoletaVentaDetalle {
   cantidad: number;
   precioCompra: number;
   precioVenta: number;
+  baseImponible: number;
+  importeIgv: number;
+  totalDetalle: number;
   eliminado: boolean;
   producto: Producto;
-  importeIgv: number;
-  baseImponible: number;
-  totalDetalle: number;
-}
-
-export interface Cliente {
-  dni: string;
-  nombre: string;
-  direccion: string;
-  telefono: string;
-  eliminado: boolean;
-  id: number;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import { Producto } from '../../../interfaces/guia-remision.interface';
+import { Producto } from '../../../interfaces/producto.interface';
 import { ProductosService } from '../../../services/productos.service';
 @Component({
   selector: 'app-producto-list',
@@ -33,13 +33,13 @@ export class ProductoListComponent implements OnInit {
   }
 
   listar(): void {
-    this.productosService.getProductos().subscribe((response) => {
+    this.productosService.getAll().subscribe((response) => {
       this.productos = response;
     });
   }
 
   eliminar(id: number): void {
-    this.productosService.eliminarProducto(id).subscribe((response) => {
+    this.productosService.delete(id).subscribe((response) => {
       console.log('response', response);
       Swal.fire({
         position: 'top-right',

@@ -16,9 +16,12 @@ export class BoletaVentaListComponent implements OnInit {
     id: 0,
     numero: '',
     fechaEmision: new Date(),
+    baseImponible: 0,
+    importeIgv: 0,
+    total: 0,
     eliminado: false,
     cliente: {
-      dni: '',
+      numeroDocumento: '',
       nombre: '',
       direccion: '',
       telefono: '',
@@ -26,9 +29,6 @@ export class BoletaVentaListComponent implements OnInit {
       id: 0,
     },
     boletaVentaDetalles: [],
-    importeIgv: 0,
-    baseImponible: 0,
-    total: 0,
   };
   // CONSTRUCTOR
   constructor(private boletasVentaService: BoletasVentaService) {}
@@ -39,13 +39,13 @@ export class BoletaVentaListComponent implements OnInit {
   }
 
   listar(): void {
-    this.boletasVentaService.getBoletasVenta().subscribe((response) => {
+    this.boletasVentaService.getAll().subscribe((response) => {
       this.boletasVenta = response;
     });
   }
 
   anular(id: number): void {
-    this.boletasVentaService.anularBoletaVenta(id).subscribe((response) => {
+    this.boletasVentaService.anular(id).subscribe((response) => {
       console.log('response', response);
       Swal.fire({
         position: 'top-right',

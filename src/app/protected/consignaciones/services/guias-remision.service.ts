@@ -15,17 +15,15 @@ export class GuiasRemisionService {
   // CONSTRUCTOR
   constructor(private http: HttpClient) {}
   // MÉTODOS
-  getGuiasRemision(): Observable<GuiaRemision[]> {
+  getAll(): Observable<GuiaRemision[]> {
     return this.http.get<GuiaRemision[]>(`${this.baseUrl}/api/consignaciones`);
   }
 
-  eliminarGuiaRemision(id: number): Observable<any> {
+  delete(id: number): Observable<any> {
     return this.http
-      .patch<any>(`${this.baseUrl}/api/consignaciones/${id}`, {})
+      .delete<any>(`${this.baseUrl}/api/consignaciones/${id}`)
       .pipe(
         catchError((err: HttpErrorResponse) => {
-          console.log('error', err);
-          console.log('err.error', err.error);
           console.log('err.error.mensaje', err.error.mensaje);
 
           Swal.fire({

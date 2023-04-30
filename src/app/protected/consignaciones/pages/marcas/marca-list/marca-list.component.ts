@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Marca } from '../../../interfaces/guia-remision.interface';
-import { MarcasService } from '../../../services/marcas.service';
 import Swal from 'sweetalert2';
+import { Marca } from '../../../interfaces/marca.interface';
+import { MarcasService } from '../../../services/marcas.service';
 
 @Component({
   selector: 'app-marca-list',
@@ -17,31 +17,34 @@ export class MarcaListComponent implements OnInit {
     nombre: '',
     eliminado: false,
   };
-  // CONSTRUCTOR
 
+  // CONSTRUCTOR
   constructor(private marcasService: MarcasService) {}
+
   // MÉTDOOS
   ngOnInit(): void {
     this.listar();
   }
 
   listar(): void {
-    this.marcasService.getMarcas().subscribe((response) => {
+    this.marcasService.getAll().subscribe((response) => {
       this.marcas = response;
     });
   }
 
   eliminar(id: number): void {
-    this.marcasService.eliminarMarca(id).subscribe((response) => {
+    this.marcasService.delete(id).subscribe((response) => {
       console.log('response', response);
       Swal.fire({
         position: 'top-right',
         icon: 'success',
         title: 'Eliminado con éxito.',
         showConfirmButton: false,
-        timer: 1500,
+        timer: 3500,
         toast: true,
       });
+
+      this.listar();
     });
   }
 

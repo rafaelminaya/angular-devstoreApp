@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import { Proveedor } from '../../../interfaces/guia-remision.interface';
+import { Proveedor } from '../../../interfaces/proveedor.interface';
 import { ProveedoresService } from '../../../services/proveedores.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class ProveedorListComponent implements OnInit {
     id: 0,
     ruc: '',
     razonComercial: '',
+    email: '',
     direccion: '',
     telefono: '',
     eliminado: false,
@@ -28,23 +29,25 @@ export class ProveedorListComponent implements OnInit {
   }
 
   listar(): void {
-    this.proveedorService.getProveedores().subscribe((response) => {
+    this.proveedorService.getAll().subscribe((response) => {
       console.log(response);
       this.proveedores = response;
     });
   }
 
   eliminar(id: number): void {
-    this.proveedorService.eliminarProveedor(id).subscribe((response) => {
+    this.proveedorService.delete(id).subscribe((response) => {
       console.log('response', response);
       Swal.fire({
         position: 'top-right',
         icon: 'success',
-        title: 'Eliminado con éxito.',
+        title: 'Proveedor eliminado con éxito.',
         showConfirmButton: false,
-        timer: 1500,
+        timer: 3500,
         toast: true,
       });
+
+      this.listar();
     });
   }
 

@@ -4,24 +4,24 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { BackendResponse } from '../../interfaces/backend-response.interface';
-import { Marca } from '../interfaces/marca.interface';
+import { Cliente } from '../interfaces/cliente.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MarcasService {
+export class ClientesService {
   //PROPIEDADES
   private baseUrl = environment.baseUrl;
   // CONSTRUCTOR
   constructor(private http: HttpClient) {}
   // MÉTODOS
-  getAll(): Observable<Marca[]> {
-    return this.http.get<Marca[]>(`${this.baseUrl}/api/marcas`);
+  getAll(): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(`${this.baseUrl}/api/clientes`);
   }
 
-  add(marca: Marca): Observable<BackendResponse> {
+  add(cliente: Cliente): Observable<BackendResponse> {
     return this.http
-      .post<BackendResponse>(`${this.baseUrl}/api/marcas`, marca)
+      .post<BackendResponse>(`${this.baseUrl}/api/clientes`, cliente)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           console.log('err.error.mensaje', err.error.mensaje);
@@ -41,7 +41,7 @@ export class MarcasService {
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/api/marcas/${id}`).pipe(
+    return this.http.delete<any>(`${this.baseUrl}/api/clientes/${id}`).pipe(
       catchError((err: HttpErrorResponse) => {
         console.log('err.error.mensaje', err.error.mensaje);
 

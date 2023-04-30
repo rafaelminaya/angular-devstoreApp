@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { GuiaRemisionAddComponent } from './pages/guia-remision/guia-remision-add/guia-remision-add.component';
-import { GuiaRemisionListComponent } from './pages/guia-remision/guia-remision-list/guia-remision-list.component';
+import { GuiaRemisionAddComponent } from './pages/guias-remision/guia-remision-add/guia-remision-add.component';
+import { GuiaRemisionListComponent } from './pages/guias-remision/guia-remision-list/guia-remision-list.component';
 import { MarcaAddComponent } from './pages/marcas/marca-add/marca-add.component';
 import { MarcaListComponent } from './pages/marcas/marca-list/marca-list.component';
 import { ProductoAddComponent } from './pages/productos/producto-add/producto-add.component';

@@ -21,6 +21,7 @@ export class GuiaRemisionListComponent implements OnInit {
       id: 0,
       ruc: '',
       razonComercial: '',
+      email: '',
       direccion: '',
       telefono: '',
       eliminado: false,
@@ -37,14 +38,14 @@ export class GuiaRemisionListComponent implements OnInit {
   }
 
   listar(): void {
-    this.guiasService.getGuiasRemision().subscribe((response) => {
+    this.guiasService.getAll().subscribe((response) => {
       console.log(response);
       this.guiasRemision = response;
     });
   }
 
   eliminar(id: number): void {
-    this.guiasService.eliminarGuiaRemision(id).subscribe((response) => {
+    this.guiasService.delete(id).subscribe((response) => {
       console.log('response', response);
       Swal.fire({
         position: 'top-right',
