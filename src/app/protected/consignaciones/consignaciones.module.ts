@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { NgSelectModule } from '@ng-select/ng-select';
+
 import { ConsignacionesRoutingModule } from './consignaciones-routing.module';
 import { GuiaRemisionAddComponent } from './pages/guias-remision/guia-remision-add/guia-remision-add.component';
 import { GuiaRemisionListComponent } from './pages/guias-remision/guia-remision-list/guia-remision-list.component';
@@ -23,6 +25,11 @@ import { ProveedorListComponent } from './pages/proveedores/proveedor-list/prove
     ProveedorAddComponent,
     ProveedorListComponent,
   ],
-  imports: [CommonModule, ConsignacionesRoutingModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ConsignacionesRoutingModule,
+    ReactiveFormsModule,
+    NgSelectModule,
+  ],
 })
 export class ConsignacionesModule {}

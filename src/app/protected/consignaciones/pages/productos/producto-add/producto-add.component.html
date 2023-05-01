@@ -43,6 +43,15 @@
                                 <span class="form-text text-danger" *ngIf="campoNoValido('nombre')">Campo
                                     obligatorio.</span>
                             </div>
+
+                            <div class="form-group">
+                                <label>Marca</label>
+                                <ng-select formControlName="marca" [items]="marcas" bindLabel="nombre"
+                                    (change)="itemSelected($event)" [clearable]="false"></ng-select>
+                                <span class="form-text text-danger" *ngIf="campoNoValido('marca')">Campo
+                                    obligatorio.</span>
+                            </div>
+
                             <div class="form-group">
                                 <label for="txt-talla">Talla</label>
                                 <input type="text" class="form-control" id="txt-talla" formControlName="talla"

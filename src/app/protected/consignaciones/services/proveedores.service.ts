@@ -25,11 +25,12 @@ export class ProveedoresService {
       .pipe(
         catchError((err: HttpErrorResponse) => {
           console.log('err.error.mensaje', err.error.mensaje);
+          console.log('err.error.mensaje', err.error.errors);
 
           Swal.fire({
             position: 'top-right',
             icon: 'info',
-            title: err.error.mensaje,
+            title: err.error.mensaje || err.error.errors,
             showConfirmButton: false,
             timer: 5000,
             toast: true,
@@ -44,11 +45,12 @@ export class ProveedoresService {
     return this.http.delete<any>(`${this.baseUrl}/api/proveedores/${id}`).pipe(
       catchError((err: HttpErrorResponse) => {
         console.log('err.error.mensaje', err.error.mensaje);
+        console.log('err.error.mensaje', err.error.errors);
 
         Swal.fire({
           position: 'top-right',
           icon: 'info',
-          title: err.error.mensaje,
+          title: err.error.mensaje || err.error.errors,
           showConfirmButton: false,
           timer: 5000,
           toast: true,

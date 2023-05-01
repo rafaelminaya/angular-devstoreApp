@@ -1,3 +1,4 @@
 export interface BackendResponse {
-  id: number;
+  id?: number;
+  errors?: string[];
 }

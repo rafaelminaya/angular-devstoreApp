@@ -1,1 +1,116 @@
-<p>registro-ventas works!</p>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Registro de ventas</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">Reportes</li>
+                    <li class="breadcrumb-item active">Registro de ventas</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Registro de ventas</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <!-- INICIO TABLE -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <!-- <h3 class="card-title">Reporte de registro de ventas</h3> -->
+                            <form [formGroup]="formReporte" (ngSubmit)="submitFormulario()">
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label for="txt-fecha-fin">Fecha inicio</label>
+                                        <input type="date" class="form-control" formControlName="fechaInicio"
+                                            id="txt-fecha-inicio" placeholder="Ingrese número">
+                                        <span class="form-text text-danger" *ngIf="campoNoValido('fechaInicio')">Campo
+                                            obligatorio.</span>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="txt-fecha-inicio">Fecha fin</label>
+                                        <input type="date" class="form-control" formControlName="fechaFin"
+                                            id="txt-fecha-fin" placeholder="Ingrese número">
+                                        <span class="form-text text-danger" *ngIf="campoNoValido('fechaFin')">Campo
+                                            obligatorio.</span>
+                                    </div>
+                                    <div class="form-group col-md-3 mt-4">
+
+                                        <button type="submit" class="btn btn-primary">Buscar</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="card-tools">
+
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha de emisión</th>
+                                        <th>Número de comprobante</th>
+                                        <th>Estado</th>
+                                        <th>Doc. Identidad</th>
+                                        <th>Cliente</th>
+                                        <th>Base Imp.</th>
+                                        <th>I.G.V.(18%)</th>
+                                        <th>Total S/</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr *ngFor="let data of reporte">
+                                        <td> {{ data.fechaEmision | date: "EEEE, dd'/'LL'/'yyyy" }} </td>
+                                        <td> {{ data.numero }} </td>
+                                        <td> {{ data.eliminado }} </td>
+                                        <td> {{ data.clienteDni }} </td>
+                                        <td> {{ data.clienteNombre }} </td>
+                                        <td> {{ data.baseImponible }} </td>
+                                        <td> {{ data.importeIgv }} </td>
+                                        <td> {{ data.total }} </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            <!-- FIN TABLE -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+            Footer
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>

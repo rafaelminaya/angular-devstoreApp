@@ -65,6 +65,7 @@
                                     <tr>
                                         <th>Fecha emisión</th>
                                         <th>Proveedor</th>
+                                        <th>Número</th>
                                         <th>Comisión %</th>
                                         <th>Estado</th>
                                         <th>Total precio venta</th>
@@ -76,6 +77,7 @@
                                     <tr *ngFor="let guia of guiasRemision">
                                         <td> {{ guia.fechaEmision | date: "EEEE, dd'/'LL'/'yyyy" }} </td>
                                         <td> {{ guia.proveedor.razonComercial }} </td>
+                                        <td> {{ guia.numero }} </td>
                                         <td> {{ (guia.porcentajeComision/100) | percent: '1.2-2'}} </td>
                                         <td> {{ (guia.procesado) ? 'Procesado' : 'Sin procesar' }} </td>
                                         <td> {{ guia.totalPrecioVenta | currency: 'PEN'}} </td>

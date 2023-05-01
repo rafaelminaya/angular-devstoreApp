@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Producto } from '../../../interfaces/producto.interface';
 import { ProductosService } from '../../../services/productos.service';
+import { Marca } from '../../../interfaces/marca.interface';
+import { MarcasService } from '../../../services/marcas.service';
 
 @Component({
   selector: 'app-producto-add',
@@ -27,6 +29,8 @@ export class ProductoAddComponent implements OnInit {
     },
   };
 
+  marcas: Marca[] = [];
+
   formProducto: FormGroup = this.fb.group({
     codigo: [
       '',
@@ -42,15 +46,29 @@ export class ProductoAddComponent implements OnInit {
     color: ['', [Validators.minLength(3), Validators.maxLength(255)]],
     precioCompra: ['', [Validators.min(0)]],
     precioVenta: ['', [Validators.min(0)]],
+    marca: [, Validators.required],
   });
 
   // CONSTRUCTOR
   constructor(
     private productosService: ProductosService,
+    private marcasService: MarcasService,
     private fb: FormBuilder
   ) {}
   // MÉTDOOS
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.listarMarcas();
+  }
+
+  listarMarcas(): void {
+    this.marcasService.getAll().subscribe((response) => {
+      this.marcas = response;
+    });
+  }
+
+  itemSelected(event: any) {
+    console.log(event);
+  }
 
   submitFormulario(): void {
     if (this.formProducto.invalid) {
@@ -58,8 +76,6 @@ export class ProductoAddComponent implements OnInit {
       this.formProducto.markAllAsTouched();
       return;
     }
-
-    // const { ruc, razonComercial, email, direccion, telefono } = this.proveedorFormulario.value;
 
     this.newProducto = this.formProducto.value;
 

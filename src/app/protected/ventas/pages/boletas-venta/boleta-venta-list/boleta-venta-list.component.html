@@ -78,7 +78,7 @@
                                         <td> {{ boleta.cliente.nombre }} </td>
                                         <td> {{ boleta.numero }} </td>
                                         <td> {{ (boleta.eliminado) ? 'Anulado' : 'Pagado' }} </td>
-                                        <td> {{ boleta.total }} </td>
+                                        <td> {{ boleta.total | currency:'PEN' }} </td>
                                         <td class="text-left py-0 align-middle">
                                             <div class="btn-group btn-group-sm">
                                                 <a class="btn btn-info"><i class="fas fa-eye"></i></a>

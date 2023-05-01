@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ReportesRoutingModule } from './reportes-routing.module';
-import { RegistroVentasComponent } from './pages/registro-ventas/registro-ventas.component';
-import { LiquidacionProveedoresComponent } from './pages/liquidacion-proveedores/liquidacion-proveedores.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { KardexPorProductoComponent } from './pages/kardex-por-producto/kardex-por-producto.component';
-
+import { LiquidacionProveedoresComponent } from './pages/liquidacion-proveedores/liquidacion-proveedores.component';
+import { RegistroVentasComponent } from './pages/registro-ventas/registro-ventas.component';
+import { ReportesRoutingModule } from './reportes-routing.module';
 
 @NgModule({
   declarations: [
     RegistroVentasComponent,
     LiquidacionProveedoresComponent,
-    KardexPorProductoComponent
+    KardexPorProductoComponent,
   ],
   imports: [
     CommonModule,
-    ReportesRoutingModule
-  ]
+    ReportesRoutingModule,
+    ReactiveFormsModule,
+    NgSelectModule,
+  ],
 })
-export class ReportesModule { }
+export class ReportesModule {}

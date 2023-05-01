@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -15,22 +15,38 @@ export class ReportesService {
   // CONSTRUCTOR
   constructor(private http: HttpClient) {}
   // MÉTODOS
-  getRegistroVentas(): Observable<RegistroVentas[]> {
+  getRegistroVentas(
+    fechaInicio: string,
+    fechaFin: string
+  ): Observable<RegistroVentas[]> {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('fechaInicio', fechaInicio);
+    searchParams = searchParams.append('fechaFin', fechaFin);
+
     return this.http.get<RegistroVentas[]>(
-      `${this.baseUrl}/api/reportes/ventas`,
-      {}
+      `${this.baseUrl}/api/reportes/registro-ventas`,
+      { params: searchParams }
     );
   }
 
-  getKardexProducto(): Observable<KardexPorProducto[]> {
+  getKardexProducto(productoId: string): Observable<KardexPorProducto[]> {
     return this.http.get<KardexPorProducto[]>(
-      `${this.baseUrl}/api/reportes/kardex-producto`
+      `${this.baseUrl}/api/reportes/kardex-producto/${productoId}`
     );
   }
 
-  getLiquidacionProveedores(): Observable<LiquidacionProveedores[]> {
+  getLiquidacionProveedores(
+    proveedorId: string,
+    fechaInicio: string,
+    fechaFin: string
+  ): Observable<LiquidacionProveedores[]> {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('fechaInicio', fechaInicio);
+    searchParams = searchParams.append('fechaFin', fechaFin);
+
     return this.http.get<LiquidacionProveedores[]>(
-      `${this.baseUrl}/api/reportes/liquidacion-proveedores`
+      `${this.baseUrl}/api/reportes/liquidacion-proveedores/${proveedorId}`,
+      { params: searchParams }
     );
   }
 }
