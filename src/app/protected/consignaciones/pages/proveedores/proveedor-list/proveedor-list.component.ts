@@ -37,7 +37,6 @@ export class ProveedorListComponent implements OnInit {
 
   eliminar(id: number): void {
     this.proveedorService.delete(id).subscribe((response) => {
-      console.log('response', response);
       Swal.fire({
         position: 'top-right',
         icon: 'success',

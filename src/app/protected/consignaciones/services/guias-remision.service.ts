@@ -19,6 +19,27 @@ export class GuiasRemisionService {
     return this.http.get<GuiaRemision[]>(`${this.baseUrl}/api/consignaciones`);
   }
 
+  get(id: string | number): Observable<GuiaRemision> {
+    return this.http
+      .get<GuiaRemision>(`${this.baseUrl}/api/consignaciones/${id}`)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          console.log('err.error.mensaje', err.error.mensaje);
+          console.log('err.error.mensaje', err.error.errors);
+
+          Swal.fire({
+            position: 'top-right',
+            icon: 'info',
+            title: err.error.mensaje || err.error.errors,
+            showConfirmButton: false,
+            timer: 5000,
+            toast: true,
+          });
+          return throwError(() => err);
+        })
+      );
+  }
+
   add(guiaRemision: GuiaRemision): Observable<BackendResponse> {
     return this.http
       .post<BackendResponse>(`${this.baseUrl}/api/consignaciones`, guiaRemision)
@@ -26,6 +47,34 @@ export class GuiasRemisionService {
         catchError((err: HttpErrorResponse) => {
           console.log('err.error.mensaje', err.error.mensaje);
           console.log('err.error.Xmensaje', err.error.errors);
+
+          Swal.fire({
+            position: 'top-right',
+            icon: 'info',
+            title: err.error.mensaje || err.error.errors,
+            showConfirmButton: false,
+            timer: 5000,
+            toast: true,
+          });
+
+          return throwError(() => err);
+        })
+      );
+  }
+
+  update(
+    id: string | number,
+    guiaRemision: GuiaRemision
+  ): Observable<BackendResponse> {
+    return this.http
+      .put<BackendResponse>(
+        `${this.baseUrl}/api/consignaciones/${id}`,
+        guiaRemision
+      )
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          console.log('err.error.mensaje', err.error.mensaje);
+          console.log('err.error.mensaje', err.error.errors);
 
           Swal.fire({
             position: 'top-right',

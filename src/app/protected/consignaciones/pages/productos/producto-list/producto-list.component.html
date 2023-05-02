@@ -81,7 +81,8 @@
                                         <td> {{ producto.marca.nombre }} </td>
                                         <td class="text-left py-0 align-middle">
                                             <div class="btn-group btn-group-sm">
-                                                <a class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                                <a [routerLink]="['/dashboard/consignaciones/productos/edit', producto.id]"
+                                                    class="btn btn-info"><i class="fas fa-eye"></i></a>
                                                 <a (click)="asignarProducto(producto)" class="btn btn-danger"
                                                     data-toggle="modal" data-target="#modal-eliminar"><i
                                                         class="fas fa-trash"></i></a>

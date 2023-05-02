@@ -19,9 +19,55 @@ export class ProveedoresService {
     return this.http.get<Proveedor[]>(`${this.baseUrl}/api/proveedores`);
   }
 
+  get(id: string | number): Observable<Proveedor> {
+    return this.http
+      .get<Proveedor>(`${this.baseUrl}/api/proveedores/${id}`)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          console.log('err.error.mensaje', err.error.mensaje);
+          console.log('err.error.mensaje', err.error.errors);
+
+          Swal.fire({
+            position: 'top-right',
+            icon: 'info',
+            title: err.error.mensaje || err.error.errors,
+            showConfirmButton: false,
+            timer: 5000,
+            toast: true,
+          });
+          return throwError(() => err);
+        })
+      );
+  }
+
   add(proveedor: Proveedor): Observable<BackendResponse> {
     return this.http
       .post<BackendResponse>(`${this.baseUrl}/api/proveedores`, proveedor)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          console.log('err.error.mensaje', err.error.mensaje);
+          console.log('err.error.mensaje', err.error.errors);
+
+          Swal.fire({
+            position: 'top-right',
+            icon: 'info',
+            title: err.error.mensaje || err.error.errors,
+            showConfirmButton: false,
+            timer: 5000,
+            toast: true,
+          });
+
+          return throwError(() => err);
+        })
+      );
+  }
+
+  update(
+    id: string | number,
+    proveedor: Proveedor
+  ): Observable<BackendResponse> {
+    return this.http
+      .put<BackendResponse>(`${this.baseUrl}/api/proveedores/${id}`, proveedor)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           console.log('err.error.mensaje', err.error.mensaje);

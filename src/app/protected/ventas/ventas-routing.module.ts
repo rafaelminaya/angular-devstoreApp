@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BoletaVentaListComponent } from './pages/boletas-venta/boleta-venta-list/boleta-venta-list.component';
 import { BoletaVentaAddComponent } from './pages/boletas-venta/boleta-venta-add/boleta-venta-add.component';
-import { ClienteListComponent } from './pages/clientes/cliente-list/cliente-list.component';
+import { BoletaVentaEditComponent } from './pages/boletas-venta/boleta-venta-edit/boleta-venta-edit.component';
+import { BoletaVentaListComponent } from './pages/boletas-venta/boleta-venta-list/boleta-venta-list.component';
 import { ClienteAddComponent } from './pages/clientes/cliente-add/cliente-add.component';
+import { ClienteEditComponent } from './pages/clientes/cliente-edit/cliente-edit.component';
+import { ClienteListComponent } from './pages/clientes/cliente-list/cliente-list.component';
 
 const routes: Routes = [
   {
@@ -11,8 +13,10 @@ const routes: Routes = [
     children: [
       { path: 'boletas-venta', component: BoletaVentaListComponent },
       { path: 'boletas-venta/crear', component: BoletaVentaAddComponent },
+      { path: 'boletas-venta/edit/:id', component: BoletaVentaEditComponent },
       { path: 'clientes', component: ClienteListComponent },
       { path: 'clientes/crear', component: ClienteAddComponent },
+      { path: 'clientes/edit/:id', component: ClienteEditComponent },
       { path: '**', redirectTo: 'boletas-venta' },
     ],
   },

@@ -19,9 +19,50 @@ export class MarcasService {
     return this.http.get<Marca[]>(`${this.baseUrl}/api/marcas`);
   }
 
+  get(id: string | number): Observable<Marca> {
+    return this.http.get<Marca>(`${this.baseUrl}/api/marcas/${id}`).pipe(
+      catchError((err: HttpErrorResponse) => {
+        console.log('err.error.mensaje', err.error.mensaje);
+        console.log('err.error.mensaje', err.error.errors);
+
+        Swal.fire({
+          position: 'top-right',
+          icon: 'info',
+          title: err.error.mensaje || err.error.errors,
+          showConfirmButton: false,
+          timer: 5000,
+          toast: true,
+        });
+        return throwError(() => err);
+      })
+    );
+  }
+
   add(marca: Marca): Observable<BackendResponse> {
     return this.http
       .post<BackendResponse>(`${this.baseUrl}/api/marcas`, marca)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          console.log('err.error.mensaje', err.error.mensaje);
+          console.log('err.error.mensaje', err.error.errors);
+
+          Swal.fire({
+            position: 'top-right',
+            icon: 'info',
+            title: err.error.mensaje || err.error.errors,
+            showConfirmButton: false,
+            timer: 5000,
+            toast: true,
+          });
+
+          return throwError(() => err);
+        })
+      );
+  }
+
+  update(id: string | number, marca: Marca): Observable<BackendResponse> {
+    return this.http
+      .put<BackendResponse>(`${this.baseUrl}/api/marcas/${id}`, marca)
       .pipe(
         catchError((err: HttpErrorResponse) => {
           console.log('err.error.mensaje', err.error.mensaje);

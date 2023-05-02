@@ -1,0 +1,55 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Modificar marca</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">Consignaciones</li>
+                    <li class="breadcrumb-item active">Modificar marca</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Modificar</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form [formGroup]="formMarca" (ngSubmit)="submitFormulario()">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label for="txt-nombre">Nombre</label>
+                                <input type="text" class="form-control" id="txt-nombre" formControlName="nombre"
+                                    placeholder="Ingrese nombre">
+                                <span class="form-text text-danger" *ngIf="campoNoValido('nombre')">Campo
+                                    obligatorio.</span>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Modificar</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card -->
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>

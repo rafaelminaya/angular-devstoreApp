@@ -81,7 +81,8 @@
                                         <td> {{ boleta.total | currency:'PEN' }} </td>
                                         <td class="text-left py-0 align-middle">
                                             <div class="btn-group btn-group-sm">
-                                                <a class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                                <a [routerLink]="['/dashboard/ventas/boletas-venta/edit', boleta.id]"
+                                                    class="btn btn-info"><i class="fas fa-eye"></i></a>
                                                 <a (click)="asignarBoleta(boleta)" class="btn btn-danger"
                                                     data-toggle="modal" data-target="#modal-eliminar"><i
                                                         class="fas fa-trash"></i></a>

@@ -39,14 +39,12 @@ export class GuiaRemisionListComponent implements OnInit {
 
   listar(): void {
     this.guiasService.getAll().subscribe((response) => {
-      console.log(response);
       this.guiasRemision = response;
     });
   }
 
   eliminar(id: number): void {
-    this.guiasService.delete(id).subscribe((response) => {
-      console.log('response', response);
+    this.guiasService.delete(id).subscribe((_) => {
       Swal.fire({
         position: 'top-right',
         icon: 'success',

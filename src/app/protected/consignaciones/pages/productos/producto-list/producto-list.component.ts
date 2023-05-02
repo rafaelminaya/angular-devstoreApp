@@ -40,7 +40,6 @@ export class ProductoListComponent implements OnInit {
 
   eliminar(id: number): void {
     this.productosService.delete(id).subscribe((response) => {
-      console.log('response', response);
       Swal.fire({
         position: 'top-right',
         icon: 'success',

@@ -8,6 +8,10 @@ import { ProductoAddComponent } from './pages/productos/producto-add/producto-ad
 import { ProductoListComponent } from './pages/productos/producto-list/producto-list.component';
 import { ProveedorAddComponent } from './pages/proveedores/proveedor-add/proveedor-add.component';
 import { ProveedorListComponent } from './pages/proveedores/proveedor-list/proveedor-list.component';
+import { MarcaEditComponent } from './pages/marcas/marca-edit/marca-edit.component';
+import { ProductoEditComponent } from './pages/productos/producto-edit/producto-edit.component';
+import { ProveedorEditComponent } from './pages/proveedores/proveedor-edit/proveedor-edit.component';
+import { GuiaRemisionEditComponent } from './pages/guias-remision/guia-remision-edit/guia-remision-edit.component';
 
 const routes: Routes = [
   {
@@ -22,12 +26,20 @@ const routes: Routes = [
         component: GuiaRemisionAddComponent,
       },
       {
+        path: 'guias-remision/edit/:id',
+        component: GuiaRemisionEditComponent,
+      },
+      {
         path: 'proveedores',
         component: ProveedorListComponent,
       },
       {
         path: 'proveedores/crear',
         component: ProveedorAddComponent,
+      },
+      {
+        path: 'proveedores/edit/:id',
+        component: ProveedorEditComponent,
       },
       {
         path: 'productos',
@@ -38,12 +50,20 @@ const routes: Routes = [
         component: ProductoAddComponent,
       },
       {
+        path: 'productos/edit/:id',
+        component: ProductoEditComponent,
+      },
+      {
         path: 'marcas',
         component: MarcaListComponent,
       },
       {
         path: 'marcas/crear',
         component: MarcaAddComponent,
+      },
+      {
+        path: 'marcas/edit/:id',
+        component: MarcaEditComponent,
       },
       {
         path: '**',
