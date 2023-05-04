@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Marca } from '../../../interfaces/marca.interface';
 import { MarcasService } from '../../../services/marcas.service';
@@ -16,18 +15,11 @@ export class MarcaEditComponent implements OnInit {
 
   marca!: Marca;
 
-  formMarca: FormGroup = this.fb.group({
-    nombre: [
-      '',
-      [Validators.required, Validators.minLength(3), Validators.maxLength(255)],
-    ],
-  });
-
   // CONSTRUCTOR
   constructor(
     private activatedRoute: ActivatedRoute,
     private marcasService: MarcasService,
-    private fb: FormBuilder
+    private router: Router
   ) {}
 
   // MÉTODOS
@@ -41,39 +33,28 @@ export class MarcaEditComponent implements OnInit {
 
       this.marcasService.get(id).subscribe((marca) => {
         this.marca = marca;
-
-        this.formMarca.setValue({
-          nombre: this.marca.nombre,
-        });
       });
     });
   }
 
-  submitFormulario(): void {
-    if (this.formMarca.invalid) {
-      // markAllAsTouched() : Método que toca /touch todos los campos del formulario, disparando las validaciones con "touched"
-      this.formMarca.markAllAsTouched();
-      return;
-    }
-
-    this.marca = this.formMarca.value;
-
-    this.marcasService.update(this.id, this.marca).subscribe((response) => {
+  submit(marca: Marca): void {
+    this.marcasService.update(this.id, marca).subscribe((response) => {
       console.log('response', response);
+
       Swal.fire({
         position: 'top-right',
         icon: 'success',
-        title: 'Marca modificada con éxito.',
+        title: 'Marca editada con éxito.',
         showConfirmButton: false,
         timer: 3500,
         toast: true,
       });
+
+      this.router.navigate(['/dashboard/consignaciones/marcas']);
     });
   }
 
-  campoNoValido(campo: string) {
-    return (
-      this.formMarca.get(campo)?.invalid && this.formMarca.get(campo)?.touched
-    );
+  cancel() {
+    this.router.navigate(['/dashboard/consignaciones/marcas']);
   }
 }

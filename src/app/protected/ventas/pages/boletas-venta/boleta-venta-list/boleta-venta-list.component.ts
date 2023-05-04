@@ -50,7 +50,7 @@ export class BoletaVentaListComponent implements OnInit {
       Swal.fire({
         position: 'top-right',
         icon: 'success',
-        title: 'Eliminado con éxito.',
+        title: 'Anulado con éxito.',
         showConfirmButton: false,
         timer: 1500,
         toast: true,

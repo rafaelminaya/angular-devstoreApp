@@ -16,6 +16,11 @@ import { ProveedorListComponent } from './pages/proveedores/proveedor-list/prove
 import { ProveedorEditComponent } from './pages/proveedores/proveedor-edit/proveedor-edit.component';
 import { ProductoEditComponent } from './pages/productos/producto-edit/producto-edit.component';
 import { GuiaRemisionEditComponent } from './pages/guias-remision/guia-remision-edit/guia-remision-edit.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { MarcaFormComponent } from './components/marca-form/marca-form.component';
+import { ProveedorFormComponent } from './components/proveedor-form/proveedor-form.component';
+import { ProductoFormComponent } from './components/producto-form/producto-form.component';
+import { GuiaRemisionFormComponent } from './components/guia-remision-form/guia-remision-form.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +36,10 @@ import { GuiaRemisionEditComponent } from './pages/guias-remision/guia-remision-
     ProveedorEditComponent,
     ProductoEditComponent,
     GuiaRemisionEditComponent,
+    MarcaFormComponent,
+    ProveedorFormComponent,
+    ProductoFormComponent,
+    GuiaRemisionFormComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +47,7 @@ import { GuiaRemisionEditComponent } from './pages/guias-remision/guia-remision-
     ReactiveFormsModule,
     NgSelectModule,
     RouterModule,
+    SharedModule,
   ],
 })
 export class ConsignacionesModule {}

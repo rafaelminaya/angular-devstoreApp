@@ -9,6 +9,9 @@ import { ClienteListComponent } from './pages/clientes/cliente-list/cliente-list
 import { VentasRoutingModule } from './ventas-routing.module';
 import { ClienteEditComponent } from './pages/clientes/cliente-edit/cliente-edit.component';
 import { BoletaVentaEditComponent } from './pages/boletas-venta/boleta-venta-edit/boleta-venta-edit.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ClienteFormComponent } from './components/cliente-form/cliente-form.component';
+import { BoletaVentaFormComponent } from './components/boleta-venta-form/boleta-venta-form.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,14 @@ import { BoletaVentaEditComponent } from './pages/boletas-venta/boleta-venta-edi
     ClienteAddComponent,
     ClienteEditComponent,
     BoletaVentaEditComponent,
+    ClienteFormComponent,
+    BoletaVentaFormComponent,
   ],
-  imports: [CommonModule, VentasRoutingModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    VentasRoutingModule,
+    ReactiveFormsModule,
+    SharedModule,
+  ],
 })
 export class VentasModule {}

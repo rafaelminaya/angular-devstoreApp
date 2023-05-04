@@ -1,19 +1,5 @@
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Nuevo proveedor</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Consignaciones</li>
-                    <li class="breadcrumb-item active">Crear proveedor</li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
-
+<app-breadcrumbs titulo="Nuevo proveedor" subtituloProceso="Consignaciones"
+    subtituloOperacion="Nuevo proveedor"></app-breadcrumbs>
 
 <section class="content">
     <div class="container-fluid">
@@ -23,69 +9,12 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Crear</h3>
+
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form [formGroup]="formProveedor" (ngSubmit)="submitFormulario()">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="txt-ruc">Ruc</label>
-                                <input type="text" class="form-control" id="txt-ruc" formControlName="ruc"
-                                    placeholder="Ingrese ruc">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('ruc')">Campo
-                                    obligatorio.</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="txt-razon-comercial">Razón comercial</label>
-                                <input type="text" class="form-control" id="txt-razon-comercial"
-                                    formControlName="razonComercial" placeholder="Ingrese razón comercial">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('razonComercial')">Campo
-                                    obligatorio.</span>
-                            </div>
-
-                            <!-- CON BOOTSTRAP PRACTICANDO-->
-                            <!-- <div class="form-group">
-                                <label for="txt-razon-comercial-2">Razón comercial 2</label>
-
-                                <input type="text" class="form-control is-invalid" id="txt-razon-comercial-2"
-                                    formControlName="razonComercial" placeholder="Ingrese razón comercial"
-                                    aria-describedby="txt-razon-comercial-2-error" aria-invalid="true">
-
-                                <span id="txt-razon-comercial-2-error" class="error invalid-feedback">Please enter a
-                                    email
-                                    address</span>
-                            </div> -->
-
-                            <div class="form-group">
-                                <label for="txt-email">Email</label>
-                                <input type="email" class="form-control" id="txt-email" formControlName="email"
-                                    placeholder="Ingrese email">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('email')">Debe tener entre 3 y
-                                    255 caracteres.</span>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="txt-direccion">Dirección</label>
-                                <input type="text" class="form-control" id="txt-direccion" formControlName="direccion"
-                                    placeholder="Ingrese direccion">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('direccion')">Debe tener entre
-                                    3 y 255 caracteres.</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="txt-telefono">Teléfono</label>
-                                <input type="text" class="form-control" id="txt-telefono" formControlName="telefono"
-                                    placeholder="Ingrese teléfono">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('telefono')">Debe tener entre 3
-                                    y 255 caracteres.</span>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Crear</button>
-                        </div>
-                    </form>
+                    <app-proveedor-form labelSubmit="Crear" (onSubmit)="submit($event)"
+                        (onCancel)="cancel()"></app-proveedor-form>
                 </div>
                 <!-- /.card -->
 

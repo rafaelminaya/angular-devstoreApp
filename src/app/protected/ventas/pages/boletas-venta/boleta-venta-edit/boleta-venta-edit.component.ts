@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { BoletaVenta } from '../../../interfaces/boleta-venta-interface';
 import { BoletasVentaService } from '../../../services/boletas-venta.service';
 
@@ -16,7 +17,8 @@ export class BoletaVentaEditComponent implements OnInit {
   // CONSTRUCTOR
   constructor(
     private activatedRoute: ActivatedRoute,
-    private boletasVentaService: BoletasVentaService
+    private boletasVentaService: BoletasVentaService,
+    private router: Router
   ) {}
 
   // MÉTODOS
@@ -32,5 +34,28 @@ export class BoletaVentaEditComponent implements OnInit {
         this.boletaVenta = boletaVenta;
       });
     });
+  }
+
+  submit(boletaVenta: BoletaVenta): void {
+    this.boletasVentaService
+      .anular(this.boletaVenta.id)
+      .subscribe((response) => {
+        console.log('response', response);
+
+        Swal.fire({
+          position: 'top-right',
+          icon: 'success',
+          title: 'Boleta de venta anulada con éxito.',
+          showConfirmButton: false,
+          timer: 3500,
+          toast: true,
+        });
+
+        this.router.navigate(['/dashboard/ventas/boletas-venta']);
+      });
+  }
+
+  cancel() {
+    this.router.navigate(['/dashboard/ventas/boletas-venta']);
   }
 }

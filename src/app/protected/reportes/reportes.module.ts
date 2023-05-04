@@ -6,6 +6,7 @@ import { KardexPorProductoComponent } from './pages/kardex-por-producto/kardex-p
 import { LiquidacionProveedoresComponent } from './pages/liquidacion-proveedores/liquidacion-proveedores.component';
 import { RegistroVentasComponent } from './pages/registro-ventas/registro-ventas.component';
 import { ReportesRoutingModule } from './reportes-routing.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ReportesRoutingModule } from './reportes-routing.module';
     ReportesRoutingModule,
     ReactiveFormsModule,
     NgSelectModule,
+    SharedModule,
   ],
 })
 export class ReportesModule {}

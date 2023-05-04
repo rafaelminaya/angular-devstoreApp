@@ -1,23 +1,27 @@
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Editar guia de remisión</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Consignaciones</li>
-                    <li class="breadcrumb-item active">Editar guía de remisión</li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
+<app-breadcrumbs titulo="Editar guía de remisión" subtituloProceso="Consignaciones"
+    subtituloOperacion="Editar guía de remisión"></app-breadcrumbs>
 
 <section class="content">
     <div class="container-fluid">
-        <pre>
-            {{ guiaRemision | json }}
-        </pre>
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+
+                    </div>
+
+                    <app-guia-remision-form labelSubmit="Editar" [model]="guiaRemision" (onSubmit)="submit($event)"
+                        (onCancel)="cancel()">
+                    </app-guia-remision-form>
+
+                </div>
+                <!-- /.card -->
+
+            </div>
+
+        </div>
+        <!-- /.row -->
     </div><!-- /.container-fluid -->
 </section>

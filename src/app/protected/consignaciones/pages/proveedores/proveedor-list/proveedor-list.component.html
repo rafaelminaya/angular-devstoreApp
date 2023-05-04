@@ -1,19 +1,5 @@
-<!-- Content Header (Page header) -->
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Proveedor</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Consignaciones</li>
-                    <li class="breadcrumb-item active">Proveedores</li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
+<app-breadcrumbs titulo="Proveedores" subtituloProceso="Consignaciones"
+    subtituloOperacion="Proveedores"></app-breadcrumbs>
 
 <!-- Main content -->
 <section class="content">
@@ -53,7 +39,7 @@
                                     </div> -->
 
                                     <button routerLink="/dashboard/consignaciones/proveedores/crear" type=" button"
-                                        class="btn btn-block btn-primary">Crear proveedor</button>
+                                        class="btn btn-block btn-primary">Nuevo proveedor</button>
 
                                 </div>
                             </div>
@@ -67,7 +53,8 @@
                                         <th>Ruc</th>
                                         <th>Dirección</th>
                                         <th>Teléfono</th>
-                                        <th>Acciones</th>
+                                        <th></th>
+
                                     </tr>
                                 </thead>
 
@@ -77,15 +64,25 @@
                                         <td> {{ proveedor.razonComercial }} </td>
                                         <td> {{ proveedor.direccion }} </td>
                                         <td> {{ proveedor.telefono }} </td>
-                                        <td class="text-left py-0 align-middle">
+                                        <td class="project-actions text-right">
+
                                             <div class="btn-group btn-group-sm">
                                                 <a [routerLink]="['/dashboard/consignaciones/proveedores/edit', proveedor.id]"
-                                                    class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                                <a (click)="asignarProveedor(proveedor)" class="btn btn-danger"
-                                                    data-toggle="modal" data-target="#modal-eliminar"><i
-                                                        class="fas fa-trash"></i></a>
+                                                    class="btn btn-info">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Editar
+                                                </a>
+
+                                                <a (click)="asignarProveedor(proveedor)" class="btn btn-danger mx-2"
+                                                    data-toggle="modal" data-target="#modal-eliminar">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Eliminar
+                                                </a>
                                             </div>
                                         </td>
+
                                     </tr>
 
                                 </tbody>

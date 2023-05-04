@@ -1,0 +1,16 @@
+<form [formGroup]="formMarca" (submit)="submitForm()">
+    <div class="card-body">
+        <div class="form-group">
+            <label for="txt-nombre">Nombre</label>
+            <input type="text" class="form-control" id="txt-nombre" formControlName="nombre"
+                placeholder="Ingrese nombre">
+            <span class="form-text text-danger" *ngIf="campoNoValido('nombre')">Campo
+                obligatorio.</span>
+        </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+        <button type="button" (click)="submitForm()" class="btn btn-primary"> {{ labelSubmit }} </button>
+        <button type="button" (click)="cancelForm()" class="btn btn-default mx-2">Cancelar</button>
+    </div>
+</form>

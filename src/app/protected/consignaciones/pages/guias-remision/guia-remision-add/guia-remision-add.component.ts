@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { GuiaRemision } from '../../../interfaces/guia-remision.interface';
 import { GuiasRemisionService } from '../../../services/guias-remision.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-guia-remision-add',
@@ -8,35 +10,34 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styles: [],
 })
 export class GuiaRemisionAddComponent implements OnInit {
-  // PROPIEDADES
-  formGuiaRemision: FormGroup = this.fb.group({
-    numero: ['', [Validators.required, Validators.min(1)]],
-    fechaEmision: ['', [Validators.required]],
-    porcentajeComision: ['', [Validators.required]],
-  });
-
   // CONSTRUCTOR
   constructor(
     private guiasService: GuiasRemisionService,
-    private fb: FormBuilder
+    private router: Router
   ) {}
 
   // MÉTODOS
   ngOnInit(): void {}
 
-  submitFormulario(): void {
-    if (this.formGuiaRemision.invalid) {
-      this.formGuiaRemision.markAllAsTouched();
-      return;
-    }
+  submit(guiaRemision: GuiaRemision): void {
+    this.guiasService.add(guiaRemision).subscribe((response) => {
+      console.log('response', response);
 
-    console.log(this.formGuiaRemision.value);
+      Swal.fire({
+        position: 'top-right',
+        icon: 'success',
+        title: 'Guia de remisión creada con éxito.',
+        showConfirmButton: false,
+        timer: 3500,
+        toast: true,
+      });
+
+      //this.formMarca.reset();
+      this.router.navigate(['/dashboard/consignaciones/guias-remision']);
+    });
   }
 
-  campoNoValido(campo: string) {
-    return (
-      this.formGuiaRemision.get(campo)?.invalid &&
-      this.formGuiaRemision.get(campo)?.touched
-    );
+  cancel() {
+    this.router.navigate(['/dashboard/consignaciones/guias-remision']);
   }
 }

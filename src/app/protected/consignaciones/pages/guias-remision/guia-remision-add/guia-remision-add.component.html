@@ -1,19 +1,5 @@
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Nueva guía de remisión</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Consignaciones</li>
-                    <li class="breadcrumb-item active">Crear guía de remisión</li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
-
+<app-breadcrumbs titulo="Nueva guía de remisión" subtituloProceso="Consignaciones"
+    subtituloOperacion="Nueva guía de remisión"></app-breadcrumbs>
 
 <section class="content">
     <div class="container-fluid">
@@ -23,40 +9,12 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Crear</h3>
+
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form [formGroup]="formGuiaRemision" (ngSubmit)="submitFormulario()">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="txt-numero">Número</label>
-                                <input type="text" class="form-control" formControlName="numero" id="txt-numero"
-                                    placeholder="Ingrese número">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('numero')">Campo
-                                    obligatorio.</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="txt-fecha-emision">Fecha</label>
-                                <input type="date" class="form-control" formControlName="fechaEmision"
-                                    id="txt-fecha-emision" placeholder="Ingrese fecha">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('fechaEmision')">Campo
-                                    obligatorio.</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="txt-porc-comision">Porcentaje comisión</label>
-                                <input type="number" class="form-control" formControlName="porcentajeComision"
-                                    id="txt-porc-comision" placeholder="Ingrese porcentaje">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('porcentajeComision')">Campo
-                                    obligatorio.</span>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Crear</button>
-                        </div>
-                    </form>
+                    <app-guia-remision-form labelSubmit="Crear" (onSubmit)="submit($event)"
+                        (onCancel)="cancel()"></app-guia-remision-form>
                 </div>
                 <!-- /.card -->
 

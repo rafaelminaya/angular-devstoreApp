@@ -30,7 +30,6 @@ export class ProveedorListComponent implements OnInit {
 
   listar(): void {
     this.proveedorService.getAll().subscribe((response) => {
-      console.log(response);
       this.proveedores = response;
     });
   }

@@ -1,19 +1,4 @@
-<!-- Content Header (Page header) -->
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Cliente</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Ventas</li>
-                    <li class="breadcrumb-item active">Clientes</li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
+<app-breadcrumbs titulo="Clientes" subtituloProceso="Ventas" subtituloOperacion="Clientes"></app-breadcrumbs>
 
 <!-- Main content -->
 <section class="content">
@@ -53,7 +38,7 @@
                                         </div> -->
 
                                     <button routerLink="/dashboard/ventas/clientes/crear" type=" button"
-                                        class="btn btn-block btn-primary">Crear cliente</button>
+                                        class="btn btn-block btn-primary">Nuevo cliente</button>
 
                                 </div>
                             </div>
@@ -67,7 +52,7 @@
                                         <th>Dni</th>
                                         <th>Dirección</th>
                                         <th>Teléfono</th>
-                                        <th>Acciones</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
 
@@ -77,14 +62,20 @@
                                         <td> {{ cliente.numeroDocumento }} </td>
                                         <td> {{ cliente.direccion }} </td>
                                         <td> {{ cliente.telefono }} </td>
-                                        <td class="text-left py-0 align-middle">
+                                        <td class="project-actions text-right">
+
                                             <div class="btn-group btn-group-sm">
                                                 <a [routerLink]="['/dashboard/ventas/clientes/edit', cliente.id]"
-                                                    class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                                <a (click)="asignarCliente(cliente)" class="btn btn-danger"
+                                                    class="btn btn-info"><i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Editar</a>
+                                                <a (click)="asignarCliente(cliente)" class="btn btn-danger mx-2"
                                                     data-toggle="modal" data-target="#modal-eliminar"><i
-                                                        class="fas fa-trash"></i></a>
+                                                        class="fas fa-trash">
+                                                    </i>
+                                                    Eliminar</a>
                                             </div>
+
                                         </td>
                                     </tr>
 

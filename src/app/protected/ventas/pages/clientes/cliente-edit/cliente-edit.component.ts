@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Cliente } from '../../../interfaces/cliente.interface';
 import { ClientesService } from '../../../services/clientes.service';
@@ -16,24 +16,11 @@ export class ClienteEditComponent implements OnInit {
 
   cliente!: Cliente;
 
-  formCliente: FormGroup = this.fb.group({
-    nombre: [
-      '',
-      [Validators.required, Validators.minLength(3), Validators.maxLength(255)],
-    ],
-    numeroDocumento: [
-      '',
-      [Validators.required, Validators.minLength(8), Validators.maxLength(12)],
-    ],
-    direccion: ['', [Validators.minLength(3), Validators.maxLength(255)]],
-    telefono: ['', [Validators.minLength(3), Validators.maxLength(255)]],
-  });
-
   // CONSTRUCTOR
   constructor(
     private activatedRoute: ActivatedRoute,
     private clientesService: ClientesService,
-    private fb: FormBuilder
+    private router: Router
   ) {}
 
   // MÉTODOS
@@ -47,43 +34,28 @@ export class ClienteEditComponent implements OnInit {
 
       this.clientesService.get(id).subscribe((cliente) => {
         this.cliente = cliente;
-
-        this.formCliente.setValue({
-          nombre: this.cliente.nombre,
-          numeroDocumento: this.cliente.numeroDocumento,
-          direccion: this.cliente.direccion,
-          telefono: this.cliente.telefono,
-        });
       });
     });
   }
 
-  submitFormulario(): void {
-    if (this.formCliente.invalid) {
-      // markAllAsTouched() : Método que toca /touch todos los campos del formulario, disparando las validaciones con "touched"
-      this.formCliente.markAllAsTouched();
-      return;
-    }
-
-    this.cliente = this.formCliente.value;
-
-    this.clientesService.update(this.id, this.cliente).subscribe((response) => {
+  submit(cliente: Cliente): void {
+    this.clientesService.update(this.id, cliente).subscribe((response) => {
       console.log('response', response);
+
       Swal.fire({
         position: 'top-right',
         icon: 'success',
-        title: 'cliente modificado con éxito.',
+        title: 'Cliente editado con éxito.',
         showConfirmButton: false,
         timer: 3500,
         toast: true,
       });
+
+      this.router.navigate(['/dashboard/ventas/clientes']);
     });
   }
 
-  campoNoValido(campo: string) {
-    return (
-      this.formCliente.get(campo)?.invalid &&
-      this.formCliente.get(campo)?.touched
-    );
+  cancel() {
+    this.router.navigate(['/dashboard/ventas/clientes']);
   }
 }

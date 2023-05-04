@@ -1,19 +1,5 @@
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Nuevo producto</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Consignaciones</li>
-                    <li class="breadcrumb-item active">Crear producto</li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
-
+<app-breadcrumbs titulo="Nuevo producto" subtituloProceso="Consignaciones"
+    subtituloOperacion="Nuevo producto"></app-breadcrumbs>
 
 <section class="content">
     <div class="container-fluid">
@@ -23,70 +9,12 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Crear</h3>
+
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form [formGroup]="formProducto" (ngSubmit)="submitFormulario()">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="txt-codigo">Código</label>
-                                <input type="text" class="form-control" id="txt-codigo" formControlName="codigo"
-                                    placeholder="Ingrese código">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('codigo')">Campo
-                                    obligatorio.</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="txt-nombre">Nombre</label>
-                                <input type="text" class="form-control" id="txt-nombre" formControlName="nombre"
-                                    placeholder="Ingrese nombre">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('nombre')">Campo
-                                    obligatorio.</span>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Marca</label>
-                                <ng-select formControlName="marca" [items]="marcas" bindLabel="nombre"
-                                    (change)="itemSelected($event)" [clearable]="false"></ng-select>
-                                <span class="form-text text-danger" *ngIf="campoNoValido('marca')">Campo
-                                    obligatorio.</span>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="txt-talla">Talla</label>
-                                <input type="text" class="form-control" id="txt-talla" formControlName="talla"
-                                    placeholder="Ingrese talla">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('talla')">Campo
-                                    obligatorio.</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="txt-color">Color</label>
-                                <input type="text" class="form-control" id="txt-color" formControlName="color"
-                                    placeholder="Ingrese color">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('color')">Campo
-                                    obligatorio.</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="txt-precio-compra">Precio compra</label>
-                                <input type="number" class="form-control" id="txt-precio-compra"
-                                    formControlName="precioCompra" placeholder="Ingrese precio compra">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('precioCompra')">Campo
-                                    obligatorio.</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="txt-precio-venta">Precio venta</label>
-                                <input type="number" class="form-control" id="txt-precio-venta"
-                                    formControlName="precioVenta" placeholder="Ingrese precio venta">
-                                <span class="form-text text-danger" *ngIf="campoNoValido('precioVenta')">Campo
-                                    obligatorio.</span>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Crear</button>
-                        </div>
-                    </form>
+                    <app-producto-form labelSubmit="Crear" (onSubmit)="submit($event)"
+                        (onCancel)="cancel()"></app-producto-form>
                 </div>
                 <!-- /.card -->
 

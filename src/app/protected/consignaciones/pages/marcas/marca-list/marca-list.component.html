@@ -1,19 +1,4 @@
-<!-- Content Header (Page header) -->
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Marca</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Consignaciones</li>
-                    <li class="breadcrumb-item active">Marcas</li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
+<app-breadcrumbs titulo="Marcas" subtituloProceso="Consignaciones" subtituloOperacion="Marcas"></app-breadcrumbs>
 
 <!-- Main content -->
 <section class="content">
@@ -53,7 +38,7 @@
                                         </div> -->
 
                                     <button routerLink="/dashboard/consignaciones/marcas/crear" type=" button"
-                                        class="btn btn-block btn-primary">Crear marca</button>
+                                        class="btn btn-block btn-primary">Nueva marca</button>
 
                                 </div>
                             </div>
@@ -64,21 +49,27 @@
                                 <thead>
                                     <tr>
                                         <th>Nombre</th>
-                                        <th>Acciones</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     <tr *ngFor="let marca of marcas">
                                         <td> {{ marca.nombre }} </td>
-                                        <td class="text-left py-0 align-middle">
+                                        <td class="project-actions text-right">
+
                                             <div class="btn-group btn-group-sm">
                                                 <a [routerLink]="['/dashboard/consignaciones/marcas/edit', marca.id]"
-                                                    class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                                <a (click)="asignarMarca(marca)" class="btn btn-danger"
+                                                    class="btn btn-info"><i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Editar</a>
+                                                <a (click)="asignarMarca(marca)" class="btn btn-danger mx-2"
                                                     data-toggle="modal" data-target="#modal-eliminar"><i
-                                                        class="fas fa-trash"></i></a>
+                                                        class="fas fa-trash">
+                                                    </i>
+                                                    Eliminar</a>
                                             </div>
+
                                         </td>
                                     </tr>
 
