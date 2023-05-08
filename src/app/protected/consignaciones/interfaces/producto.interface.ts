@@ -11,3 +11,9 @@ export interface Producto {
   eliminado: boolean;
   marca: Marca;
 }
+
+export interface ProductoByMarca {
+  productoId: number;
+  producto: Producto;
+  cadenaProductos: string[];
+}

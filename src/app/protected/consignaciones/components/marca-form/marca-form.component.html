@@ -1,11 +1,15 @@
 <form [formGroup]="formMarca" (submit)="submitForm()">
     <div class="card-body">
-        <div class="form-group">
-            <label for="txt-nombre">Nombre</label>
-            <input type="text" class="form-control" id="txt-nombre" formControlName="nombre"
-                placeholder="Ingrese nombre">
-            <span class="form-text text-danger" *ngIf="campoNoValido('nombre')">Campo
-                obligatorio.</span>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-nombre">Nombre</label>
+                    <input type="text" class="form-control" id="txt-nombre" formControlName="nombre"
+                        placeholder="Ingrese nombre">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('nombre')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
         </div>
     </div>
     <!-- /.card-body -->

@@ -45,6 +45,7 @@ export class GuiasRemisionService {
       .post<BackendResponse>(`${this.baseUrl}/api/consignaciones`, guiaRemision)
       .pipe(
         catchError((err: HttpErrorResponse) => {
+          console.log('err', err);
           console.log('err.error.mensaje', err.error.mensaje);
           console.log('err.error.Xmensaje', err.error.errors);
 
@@ -93,6 +94,52 @@ export class GuiasRemisionService {
   delete(id: number): Observable<any> {
     return this.http
       .delete<any>(`${this.baseUrl}/api/consignaciones/${id}`)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          console.log('err.error.mensaje', err.error.mensaje);
+          console.log('err.error.mensaje', err.error.errors);
+
+          Swal.fire({
+            position: 'top-right',
+            icon: 'info',
+            title: err.error.mensaje || err.error.errors,
+            showConfirmButton: false,
+            timer: 5000,
+            toast: true,
+          });
+          // return of(err.error.mensaje);
+          return throwError(() => err);
+        })
+      );
+  }
+
+  procesar(id: number) {
+    return this.http
+      .put<any>(`${this.baseUrl}/api/consignaciones/${id}/procesar-kardex`, {})
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          console.log('err.error.mensaje', err.error.mensaje);
+          console.log('err.error.mensaje', err.error.errors);
+
+          Swal.fire({
+            position: 'top-right',
+            icon: 'info',
+            title: err.error.mensaje || err.error.errors,
+            showConfirmButton: false,
+            timer: 5000,
+            toast: true,
+          });
+          // return of(err.error.mensaje);
+          return throwError(() => err);
+        })
+      );
+  }
+  desprocesar(id: number) {
+    return this.http
+      .put<any>(
+        `${this.baseUrl}/api/consignaciones/${id}/desprocesar-kardex`,
+        {}
+      )
       .pipe(
         catchError((err: HttpErrorResponse) => {
           console.log('err.error.mensaje', err.error.mensaje);

@@ -1,21 +1,27 @@
 <form [formGroup]="formProveedor" (submit)="submitForm()">
     <div class="card-body">
-        <div class="form-group">
-            <label for="txt-ruc">Ruc</label>
-            <input type="text" class="form-control" id="txt-ruc" formControlName="ruc" placeholder="Ingrese ruc">
-            <span class="form-text text-danger" *ngIf="campoNoValido('ruc')">Campo
-                obligatorio.</span>
-        </div>
-        <div class="form-group">
-            <label for="txt-razon-comercial">Razón comercial</label>
-            <input type="text" class="form-control" id="txt-razon-comercial" formControlName="razonComercial"
-                placeholder="Ingrese razón comercial">
-            <span class="form-text text-danger" *ngIf="campoNoValido('razonComercial')">Campo
-                obligatorio.</span>
-        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-ruc">Ruc</label>
+                    <input type="text" class="form-control" id="txt-ruc" formControlName="ruc"
+                        placeholder="Ingrese ruc">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('ruc')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-razon-comercial">Razón comercial</label>
+                    <input type="text" class="form-control" id="txt-razon-comercial" formControlName="razonComercial"
+                        placeholder="Ingrese razón comercial">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('razonComercial')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
 
-        <!-- CON BOOTSTRAP PRACTICANDO-->
-        <!-- <div class="form-group">
+            <!-- CON BOOTSTRAP PRACTICANDO-->
+            <!-- <div class="form-group">
             <label for="txt-razon-comercial-2">Razón comercial 2</label>
 
             <input type="text" class="form-control is-invalid" id="txt-razon-comercial-2"
@@ -26,28 +32,36 @@
                 email
                 address</span>
         </div> -->
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-email">Email</label>
+                    <input type="email" class="form-control" id="txt-email" formControlName="email"
+                        placeholder="Ingrese email">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('email')">Debe tener entre 3 y
+                        255 caracteres.</span>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label for="txt-email">Email</label>
-            <input type="email" class="form-control" id="txt-email" formControlName="email" placeholder="Ingrese email">
-            <span class="form-text text-danger" *ngIf="campoNoValido('email')">Debe tener entre 3 y
-                255 caracteres.</span>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-direccion">Dirección</label>
+                    <input type="text" class="form-control" id="txt-direccion" formControlName="direccion"
+                        placeholder="Ingrese direccion">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('direccion')">Debe tener entre
+                        3 y 255 caracteres.</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-telefono">Teléfono</label>
+                    <input type="text" class="form-control" id="txt-telefono" formControlName="telefono"
+                        placeholder="Ingrese teléfono">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('telefono')">Debe tener entre 3
+                        y 255 caracteres.</span>
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="txt-direccion">Dirección</label>
-            <input type="text" class="form-control" id="txt-direccion" formControlName="direccion"
-                placeholder="Ingrese direccion">
-            <span class="form-text text-danger" *ngIf="campoNoValido('direccion')">Debe tener entre
-                3 y 255 caracteres.</span>
-        </div>
-        <div class="form-group">
-            <label for="txt-telefono">Teléfono</label>
-            <input type="text" class="form-control" id="txt-telefono" formControlName="telefono"
-                placeholder="Ingrese teléfono">
-            <span class="form-text text-danger" *ngIf="campoNoValido('telefono')">Debe tener entre 3
-                y 255 caracteres.</span>
-        </div>
     </div>
     <div class="card-footer">
         <button type="button" (click)="submitForm()" class="btn btn-primary"> {{ labelSubmit }} </button>

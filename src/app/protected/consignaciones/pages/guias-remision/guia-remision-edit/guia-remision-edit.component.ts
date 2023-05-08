@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { GuiaRemision } from '../../../interfaces/guia-remision.interface';
 import { GuiasRemisionService } from '../../../services/guias-remision.service';
+import { switchMap } from 'rxjs';
+import { BackendResponse } from 'src/app/protected/interfaces/backend-response.interface';
 
 @Component({
   selector: 'app-guia-remision-edit',
@@ -37,8 +39,18 @@ export class GuiaRemisionEditComponent implements OnInit {
   }
 
   submit(guiaRemision: GuiaRemision): void {
+    console.log('guiaRemision', guiaRemision);
+
     this.guiasRemisionService
-      .update(this.id, guiaRemision)
+      .desprocesar(this.id)
+      .pipe(
+        switchMap((_) =>
+          this.guiasRemisionService.update(this.id, guiaRemision)
+        ),
+        switchMap((response: BackendResponse) =>
+          this.guiasRemisionService.procesar(response.id!)
+        )
+      )
       .subscribe((response) => {
         console.log('response', response);
 

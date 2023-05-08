@@ -1,33 +1,43 @@
 <form [formGroup]="formCliente" (submit)="submitForm()">
     <div class="card-body">
-        <div class="form-group">
-            <label for="txt-nombre">Nombre completo</label>
-            <input type="text" class="form-control" id="txt-nombre" formControlName="nombre"
-                placeholder="Ingrese nombre">
-            <span class="form-text text-danger" *ngIf="campoNoValido('nombre')">Campo
-                obligatorio.</span>
-        </div>
-        <div class="form-group">
-            <label for="txt-numero-documento">Número de documento (Dni/Pasaporte/
-                Carnet Ext.)</label>
-            <input type="text" class="form-control" id="txt-numero-documento" formControlName="numeroDocumento"
-                placeholder="Ingrese numero de documento">
-            <span class="form-text text-danger" *ngIf="campoNoValido('numeroDocumento')">Campo
-                obligatorio.</span>
-        </div>
-        <div class="form-group">
-            <label for="txt-direccion">Dirección</label>
-            <input type="text" class="form-control" id="txt-direccion" formControlName="direccion"
-                placeholder="Ingrese direccion">
-            <span class="form-text text-danger" *ngIf="campoNoValido('direccion')">Campo
-                obligatorio.</span>
-        </div>
-        <div class="form-group">
-            <label for="txt-telefono">Teléfono</label>
-            <input type="text" class="form-control" id="txt-telefono" formControlName="telefono"
-                placeholder="Ingrese telefono">
-            <span class="form-text text-danger" *ngIf="campoNoValido('telefono')">Campo
-                obligatorio.</span>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-nombre">Nombre completo</label>
+                    <input type="text" class="form-control" id="txt-nombre" formControlName="nombre"
+                        placeholder="Ingrese nombre">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('nombre')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-numero-documento">Número de documento (Dni/Pasaporte/
+                        Carnet Ext.)</label>
+                    <input type="text" class="form-control" id="txt-numero-documento" formControlName="numeroDocumento"
+                        placeholder="Ingrese numero de documento">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('numeroDocumento')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-direccion">Dirección</label>
+                    <input type="text" class="form-control" id="txt-direccion" formControlName="direccion"
+                        placeholder="Ingrese direccion">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('direccion')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-telefono">Teléfono</label>
+                    <input type="text" class="form-control" id="txt-telefono" formControlName="telefono"
+                        placeholder="Ingrese telefono">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('telefono')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
         </div>
     </div>
     <!-- /.card-body -->

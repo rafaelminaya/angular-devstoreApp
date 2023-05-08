@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { GuiaRemision } from '../../../interfaces/guia-remision.interface';
 import { GuiasRemisionService } from '../../../services/guias-remision.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-guia-remision-list',
@@ -31,7 +32,10 @@ export class GuiaRemisionListComponent implements OnInit {
     eliminado: false,
   };
   // CONSTRUCTOR
-  constructor(private guiasService: GuiasRemisionService) {}
+  constructor(
+    private guiasService: GuiasRemisionService,
+    private router: Router
+  ) {}
   // MÉTODOS
   ngOnInit(): void {
     this.listar();
@@ -53,6 +57,7 @@ export class GuiaRemisionListComponent implements OnInit {
         timer: 1500,
         toast: true,
       });
+      this.listar();
     });
   }
 

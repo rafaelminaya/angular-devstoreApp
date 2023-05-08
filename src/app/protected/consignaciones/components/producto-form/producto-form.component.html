@@ -1,53 +1,72 @@
 <form [formGroup]="formProducto" (submit)="submitForm()">
     <div class="card-body">
-        <div class="form-group">
-            <label for="txt-codigo">Código</label>
-            <input type="text" class="form-control" id="txt-codigo" formControlName="codigo"
-                placeholder="Ingrese código">
-            <span class="form-text text-danger" *ngIf="campoNoValido('codigo')">Campo
-                obligatorio.</span>
-        </div>
-        <div class="form-group">
-            <label for="txt-nombre">Nombre</label>
-            <input type="text" class="form-control" id="txt-nombre" formControlName="nombre"
-                placeholder="Ingrese nombre">
-            <span class="form-text text-danger" *ngIf="campoNoValido('nombre')">Campo
-                obligatorio.</span>
-        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-codigo">Código</label>
+                    <input type="text" class="form-control" id="txt-codigo" formControlName="codigo"
+                        placeholder="Ingrese código">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('codigo')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-nombre">Nombre</label>
+                    <input type="text" class="form-control" id="txt-nombre" formControlName="nombre"
+                        placeholder="Ingrese nombre">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('nombre')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Marca</label>
+                    <ng-select formControlName="marca" [items]="marcas" bindLabel="nombre"
+                        (change)="itemSelected($event)" [clearable]="false"></ng-select>
+                    <span class="form-text text-danger" *ngIf="campoNoValido('marca')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label>Marca</label>
-            <ng-select formControlName="marca" [items]="marcas" bindLabel="nombre" (change)="itemSelected($event)"
-                [clearable]="false"></ng-select>
-            <span class="form-text text-danger" *ngIf="campoNoValido('marca')">Campo
-                obligatorio.</span>
-        </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-talla">Talla</label>
+                    <input type="text" class="form-control" id="txt-talla" formControlName="talla"
+                        placeholder="Ingrese talla">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('talla')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-color">Color</label>
+                    <input type="text" class="form-control" id="txt-color" formControlName="color"
+                        placeholder="Ingrese color">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('color')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-precio-compra">Precio compra</label>
+                    <input type="number" class="form-control" id="txt-precio-compra" formControlName="precioCompra"
+                        placeholder="Ingrese precio compra">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('precioCompra')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label for="txt-talla">Talla</label>
-            <input type="text" class="form-control" id="txt-talla" formControlName="talla" placeholder="Ingrese talla">
-            <span class="form-text text-danger" *ngIf="campoNoValido('talla')">Campo
-                obligatorio.</span>
-        </div>
-        <div class="form-group">
-            <label for="txt-color">Color</label>
-            <input type="text" class="form-control" id="txt-color" formControlName="color" placeholder="Ingrese color">
-            <span class="form-text text-danger" *ngIf="campoNoValido('color')">Campo
-                obligatorio.</span>
-        </div>
-        <div class="form-group">
-            <label for="txt-precio-compra">Precio compra</label>
-            <input type="number" class="form-control" id="txt-precio-compra" formControlName="precioCompra"
-                placeholder="Ingrese precio compra">
-            <span class="form-text text-danger" *ngIf="campoNoValido('precioCompra')">Campo
-                obligatorio.</span>
-        </div>
-        <div class="form-group">
-            <label for="txt-precio-venta">Precio venta</label>
-            <input type="number" class="form-control" id="txt-precio-venta" formControlName="precioVenta"
-                placeholder="Ingrese precio venta">
-            <span class="form-text text-danger" *ngIf="campoNoValido('precioVenta')">Campo
-                obligatorio.</span>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-precio-venta">Precio venta</label>
+                    <input type="number" class="form-control" id="txt-precio-venta" formControlName="precioVenta"
+                        placeholder="Ingrese precio venta">
+                    <span class="form-text text-danger" *ngIf="campoNoValido('precioVenta')">Campo
+                        obligatorio.</span>
+                </div>
+            </div>
         </div>
     </div>
     <!-- /.card-body -->

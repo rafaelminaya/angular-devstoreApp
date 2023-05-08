@@ -4,7 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { BackendResponse } from '../../interfaces/backend-response.interface';
-import { Producto } from '../interfaces/producto.interface';
+import { Producto, ProductoByMarca } from '../interfaces/producto.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +36,29 @@ export class ProductosService {
         return throwError(() => err);
       })
     );
+  }
+
+  getAllByMarcaId(marcaId: number): Observable<ProductoByMarca[]> {
+    return this.http
+      .get<ProductoByMarca[]>(
+        `${this.baseUrl}/api/productos/${marcaId}/by-marca`
+      )
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          console.log('err.error.mensaje', err.error.mensaje);
+          console.log('err.error.mensaje', err.error.errors);
+
+          Swal.fire({
+            position: 'top-right',
+            icon: 'info',
+            title: err.error.mensaje || err.error.errors,
+            showConfirmButton: false,
+            timer: 5000,
+            toast: true,
+          });
+          return throwError(() => err);
+        })
+      );
   }
 
   add(producto: Producto): Observable<BackendResponse> {

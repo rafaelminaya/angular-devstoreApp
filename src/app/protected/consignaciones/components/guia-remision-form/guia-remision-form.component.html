@@ -1,25 +1,145 @@
 <form [formGroup]="formGuiaRemision" (submit)="submitForm()">
     <div class="card-body">
-        <div class="form-group">
-            <label for="txt-numero">Número</label>
-            <input type="text" class="form-control" formControlName="numero" id="txt-numero"
-                placeholder="Ingrese número">
-            <span class="form-text text-danger" *ngIf="campoNoValido('numero')">Campo
-                obligatorio.</span>
-        </div>
-        <div class="form-group">
-            <label for="txt-fecha-emision">Fecha</label>
-            <input type="date" class="form-control" formControlName="fechaEmision" id="txt-fecha-emision"
-                placeholder="Ingrese fecha">
-            <span class="form-text text-danger" *ngIf="campoNoValido('fechaEmision')">Campo
-                obligatorio.</span>
-        </div>
-        <div class="form-group">
-            <label for="txt-porc-comision">Porcentaje comisión</label>
-            <input type="number" class="form-control" formControlName="porcentajeComision" id="txt-porc-comision"
-                placeholder="Ingrese porcentaje">
-            <span class="form-text text-danger" *ngIf="campoNoValido('porcentajeComision')">Campo
-                obligatorio.</span>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label>Proveedor</label>
+                            <ng-select formControlName="proveedor" [items]="proveedores" bindLabel="razonComercial"
+                                (change)="itemSelected($event)" [clearable]="false"></ng-select>
+                            <span class="form-text text-danger" *ngIf="campoNoValido('proveedor')">Campo
+                                obligatorio.</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group mt-4">
+                            <button type="button" (click)="nuevoProveedor()" class="btn btn-success">Nuevo</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="txt-numero">Número</label>
+                            <input type="text" class="form-control" formControlName="numero" id="txt-numero"
+                                placeholder="Ingrese número">
+                            <span class="form-text text-danger" *ngIf="campoNoValido('numero')">Campo
+                                obligatorio.</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="txt-fecha-emision">Fecha</label>
+                            <input type="date" class="form-control" formControlName="fechaEmision"
+                                id="txt-fecha-emision" placeholder="Ingrese fecha">
+                            <span class="form-text text-danger" *ngIf="campoNoValido('fechaEmision')">Campo
+                                obligatorio.</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="txt-porc-comision">Porcentaje comisión</label>
+                            <input type="number" class="form-control" formControlName="porcentajeComision"
+                                id="txt-porc-comision" placeholder="Ingrese porcentaje">
+                            <span class="form-text text-danger" *ngIf="campoNoValido('porcentajeComision')">Campo
+                                obligatorio.</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class=" col-sm-9">
+                <form [formGroup]="formDetalle" (submit)="submitForm()">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label>Marca</label>
+                                <ng-select formControlName="marca" [items]="marcas" bindLabel="nombre"
+                                    (change)="itemSelectedMarca($event)" [clearable]="false"></ng-select>
+                                <span class="form-text text-danger" *ngIf="campoDetalleNoValido('marca')">Campo
+                                    obligatorio</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" *ngIf="productos.length !== 0">
+                            <div class="form-group">
+                                <label>Producto</label>
+                                <ng-select formControlName="producto" [items]="productos" bindLabel="cadenaProductos"
+                                    bindValue="producto" (change)="itemSelectedProducto($event)"
+                                    [clearable]="false"></ng-select>
+                                <span class="form-text text-danger" *ngIf="campoDetalleNoValido('producto')">Campo
+                                    obligatorio.</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <div class="form-group mt-4">
+                                <button type="button" (click)="nuevoProducto()" class="btn btn-success">Nuevo</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="txt-cantidad">Cantidad</label>
+                                <input type="number" class="form-control" formControlName="cantidad" id="txt-cantidad"
+                                    placeholder="Ingrese cantidad">
+                                <span class="form-text text-danger" *ngIf="campoDetalleNoValido('cantidad')">Campo
+                                    obligatorio.</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="txt-precio-venta">Precio de venta</label>
+                                <input type="number" class="form-control" formControlName="precioVenta"
+                                    id="txt-precio-venta" placeholder="Ingrese precio de venta">
+                                <span class="form-text text-danger" *ngIf="campoDetalleNoValido ('precioVenta')">Campo
+                                    obligatorio.</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mt-4">
+                            <div class="form-group">
+                                <button type="button" (click)="agregarDetalle()"
+                                    class="btn btn-primary">Agregar</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio compra</th>
+                                            <th>Precio venta</th>
+                                            <th>Total precio venta</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr *ngFor="let detalle of detalles">
+                                            <td> {{ detalle.producto.nombre }} </td>
+                                            <td> {{ detalle.cantidad }} </td>
+                                            <td> {{ detalle.precioCompra | currency: 'PEN' }} </td>
+                                            <td> {{ detalle.precioVenta | currency: 'PEN' }} </td>
+                                            <td> {{ detalle.totalDetalle | currency: 'PEN' }} </td>
+                                            <td class="project-actions text-right">
+
+                                                <div class="btn-group btn-group-sm">
+                                                    <a (click)="eliminarDetalle(detalle)" class="btn btn-danger mx-2"
+                                                        data-toggle="modal" data-target="#modal-eliminar"><i
+                                                            class="fas fa-trash">
+                                                        </i>
+                                                        Eliminar</a>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <!-- /.card-body -->
@@ -28,3 +148,20 @@
         <button type="button" (click)="cancelForm()" class="btn btn-default mx-2">Cancelar</button>
     </div>
 </form>
+
+<!-- <div class="row">
+    <div class="col">
+        <span>Valid</span>
+        <pre>{{ formGuiaRemision.valid }}</pre>
+
+        <span>Value</span>
+        <pre>{{ formGuiaRemision.value | json }}</pre>
+
+        <span>Agregar detalle</span>
+        <pre>{{ formDetalle.valid }}</pre>
+
+        <span>Agregar value</span>
+        <pre>{{ formDetalle.value | json }}</pre>
+
+    </div>
+</div> -->
