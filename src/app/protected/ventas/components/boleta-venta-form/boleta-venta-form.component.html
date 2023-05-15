@@ -1,11 +1,153 @@
 <form [formGroup]="formBoletaVenta" (submit)="submitForm()">
     <div class="card-body">
-        <div class="form-group">
-            <label for="txt-numero">Número</label>
-            <input type="text" class="form-control" id="txt-numero" formControlName="numero"
-                placeholder="Ingrese nombre">
-            <span class="form-text text-danger" *ngIf="campoNoValido('numero')">Campo
-                obligatorio.</span>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="txt-buscar-producto">Buscar productos</label>
+                            <input type="search" class="form-control" id="txt-buscar-producto"
+                                (input)="teclaPresionada()" #txtBuscarProducto
+                                placeholder="Buscar código o nombre del producto">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <h1>Productos buscados</h1>
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <section class="content">
+                            <div class="container-fluid">
+                                <h5 class="mb-2">Info Box</h5>
+                                <div class="row">
+
+
+
+                                    <div class="col-md-6 col-sm-6 col-12" *ngFor="let producto of productosBuscados">
+                                        <div class="info-box bg-warning" (click)="productoBox(producto.id )">
+                                            <!-- <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span> -->
+
+                                            <div class="info-box-content" data-id="1">
+                                                <span class="info-box-number" style="text-align: center;"> {{
+                                                    producto.codigo }} </span>
+                                                <span class="info-box-number" style="text-align: center;"> {{
+                                                    producto.nombre }} </span>
+                                                <span class="info-box-number" style="text-align: center;"> {{
+                                                    producto.color }} </span>
+                                                <span class="info-box-number" style="text-align: center;"> {{
+                                                    producto.talla }} </span>
+                                                <div class="progress">
+                                                    <div class="progress-bar" style="width: 0%"></div>
+                                                </div>
+                                                <span class="info-box-number" style="text-align: center;">
+                                                    {{ producto.precioVenta | currency:'PEN' }} </span>
+                                            </div>
+                                            <!-- /.info-box-content -->
+                                        </div>
+                                        <!-- /.info-box -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class=" col-sm-8">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txt-numero">Número de boleta</label>
+                            <input type="number" class="form-control" formControlName="numero" id="txt-numero"
+                                placeholder="Ingrese número">
+                            <span class="form-text text-danger" *ngIf="campoNoValido('numero')">Campo
+                                obligatorio.</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txt-documento">Número de documento</label>
+                            <input type="text" class="form-control" formControlName="numeroDocumento" id="txt-documento"
+                                placeholder="Ingrese dni">
+                            <span class="form-text text-danger" *ngIf="campoNoValido('numeroDocumento')">Campo
+                                obligatorio.</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txt-nombre-completo">Nombre completo</label>
+                            <input type="text" class="form-control" formControlName="nombre" id="txt-nombre-completo"
+                                placeholder="Ingrese nombre completo">
+                            <span class="form-text text-danger" *ngIf="campoNoValido('nombre')">Campo
+                                obligatorio.</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txt-nombre-completo">Direccion</label>
+                            <input type="text" class="form-control" formControlName="direccion" id="txt-direccion"
+                                placeholder="Ingrese direccion">
+                            <span class="form-text text-danger" *ngIf="campoNoValido('direccion')">Campo
+                                obligatorio.</span>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h1>Productos seleccionados</h1>
+                        <!-- AQUÍ LOS PRODUCTOS SELECCIONADOS -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th style="text-align: center">Cantidad</th>
+                                        <th></th>
+                                        <th style="text-align: center">Precio venta</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr *ngFor="let producto of prodductosSeleccionados">
+                                        <td> {{ producto.cadenaProducto }} </td>
+
+                                        <td> <input type="number" value="1"
+                                                (input)="actualizarCantidad(producto.id, $event)" min="1"
+                                                class="form-control" style="text-align: center"> </td>
+
+                                        <td> <label>S/</label></td>
+
+                                        <td> <input type="number" value="{{ producto.precioVenta || 1 }}"
+                                                (input)="actualizarPrecioVenta(producto.id, $event)" min="1"
+                                                class="form-control" style="text-align: center"> </td>
+
+                                        <td> {{ producto.precioVenta | currency: 'PEN' }} </td>
+
+                                        <td class="project-actions text-right">
+
+                                            <div class="btn-group btn-group-sm">
+                                                <a (click)="eliminarDetalle(producto)" class="btn btn-danger mx-2"
+                                                    data-toggle="modal" data-target="#modal-eliminar"><i
+                                                        class="fas fa-trash">
+                                                    </i>
+                                                    Eliminar</a>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- /.card-body -->

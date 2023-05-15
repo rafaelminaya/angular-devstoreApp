@@ -68,8 +68,13 @@
                                         <td class="project-actions text-right">
 
                                             <div class="btn-group btn-group-sm">
-                                                <a [routerLink]="['/dashboard/ventas/boletas-venta/edit', boleta.id]"
+                                                <!-- <a [routerLink]="['/dashboard/ventas/boletas-venta/edit', boleta.id]"
                                                     class="btn btn-info"><i class="fas fa-folder">
+                                                    </i>
+                                                    Ver</a> -->
+                                                <a (click)="asignarBoleta(boleta)" class="btn btn-info"
+                                                    data-toggle="modal" data-target="#modal-mostrar"><i
+                                                        class="fas fa-folder">
                                                     </i>
                                                     Ver</a>
                                                 <a (click)="asignarBoleta(boleta)" class="btn btn-danger mx-2"
@@ -118,7 +123,94 @@
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 <button (click)="anular(boletaVenta.id)" type="button" class="btn btn-danger"
-                    data-dismiss="modal">Eliminar</button>
+                    data-dismiss="modal">Anular</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="modal-mostrar" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Boleta de venta</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txt-codigo">Número</label>
+                            <input [value]="boletaVenta.numero" type="text" class="form-control" id="txt-codigo"
+                                placeholder="Ingrese código" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txt-fecha-emision">Fecha</label>
+                            <input [value]="boletaVenta.fechaEmision | date: 'EEEE, dd/LL/yyyy'" type="text"
+                                class="form-control" id="txt-fecha-emision" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txt-cliente-documento">Número de documento</label>
+                            <input [value]="boletaVenta.cliente.nombre" type="text" class="form-control"
+                                id="txt-cliente-documento" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txt-cliente-nombre">Nombre completo</label>
+                            <input [value]="boletaVenta.cliente.nombre" type="text" class="form-control"
+                                id="txt-cliente-nombre" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txt-cliente-direccion">Dirección</label>
+                            <input [value]="boletaVenta.cliente.direccion" type="text" class="form-control"
+                                id="txt-cliente-direccion" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio venta</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let detalle of boletaVenta.boletaVentaDetalles">
+                                <td> {{ detalle.producto.cadenaProducto }} </td>
+                                <td> {{ detalle.cantidad }} </td>
+                                <td> {{ detalle.precioVenta | currency:'PEN' }} </td>
+                                <td> {{ detalle.totalDetalle | currency:'PEN' }} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- <p>¿Seguro de anular la boleta de venta?</p> -->
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+                <!-- <button  (click)="anular(boletaVenta.id)" type="button" class="btn btn-danger"
+                    data-dismiss="modal">Anular</button> -->
+
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eliminar"
+                    data-dismiss="modal">Anular</button>
             </div>
         </div>
         <!-- /.modal-content -->

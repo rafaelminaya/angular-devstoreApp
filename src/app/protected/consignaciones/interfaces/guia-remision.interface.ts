@@ -21,8 +21,8 @@ export interface GuiaRemisionDetalle {
   precioVenta: number;
   producto: Producto;
   eliminado: boolean;
-  precioCompra: number;
-  totalDetalle: number;
+  precioCompra?: number;
+  totalDetalle?: number;
   porcentajeComision: number;
-  importeComision: number;
+  importeComision?: number;
 }

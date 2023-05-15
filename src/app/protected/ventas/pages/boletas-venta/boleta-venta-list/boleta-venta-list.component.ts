@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import { BoletaVenta } from '../../../interfaces/boleta-venta-interface';
+import {
+  BoletaVenta,
+  BoletaVentaDetalle,
+} from '../../../interfaces/boleta-venta-interface';
 import { BoletasVentaService } from '../../../services/boletas-venta.service';
 
 @Component({
@@ -10,6 +13,7 @@ import { BoletasVentaService } from '../../../services/boletas-venta.service';
 })
 export class BoletaVentaListComponent implements OnInit {
   //PROPIEDADES
+  boletaVentaDetalles: BoletaVentaDetalle[] = [];
   boletasVenta: BoletaVenta[] = [];
 
   boletaVenta: BoletaVenta = {
@@ -41,6 +45,7 @@ export class BoletaVentaListComponent implements OnInit {
   listar(): void {
     this.boletasVentaService.getAll().subscribe((response) => {
       this.boletasVenta = response;
+      console.log(this.boletasVenta);
     });
   }
 
@@ -55,10 +60,13 @@ export class BoletaVentaListComponent implements OnInit {
         timer: 1500,
         toast: true,
       });
+
+      this.listar();
     });
   }
 
   asignarBoleta(boletaVenta: BoletaVenta): void {
+    console.log('boletaVenta', boletaVenta);
     this.boletaVenta = boletaVenta;
   }
 }

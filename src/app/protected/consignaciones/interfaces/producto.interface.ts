@@ -10,10 +10,11 @@ export interface Producto {
   precioVenta: number;
   eliminado: boolean;
   marca: Marca;
+  cadenaProducto: string;
 }
 
 export interface ProductoByMarca {
   productoId: number;
   producto: Producto;
-  cadenaProductos: string[];
+  cadenaProducto: string;
 }

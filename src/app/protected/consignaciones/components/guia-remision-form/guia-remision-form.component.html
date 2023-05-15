@@ -39,7 +39,8 @@
                         <div class="form-group">
                             <label for="txt-porc-comision">Porcentaje comisión</label>
                             <input type="number" class="form-control" formControlName="porcentajeComision"
-                                id="txt-porc-comision" placeholder="Ingrese porcentaje">
+                                id="txt-porc-comision" (input)="actualizarPreciosPorPorcentaje($event)"
+                                placeholder="Ingrese porcentaje">
                             <span class="form-text text-danger" *ngIf="campoNoValido('porcentajeComision')">Campo
                                 obligatorio.</span>
                         </div>
@@ -49,25 +50,20 @@
             </div>
 
             <div class=" col-sm-9">
-                <form [formGroup]="formDetalle" (submit)="submitForm()">
+                <form [formGroup]="formDetalle">
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="form-group">
                                 <label>Marca</label>
                                 <ng-select formControlName="marca" [items]="marcas" bindLabel="nombre"
                                     (change)="itemSelectedMarca($event)" [clearable]="false"></ng-select>
-                                <span class="form-text text-danger" *ngIf="campoDetalleNoValido('marca')">Campo
-                                    obligatorio</span>
                             </div>
                         </div>
                         <div class="col-sm-6" *ngIf="productos.length !== 0">
                             <div class="form-group">
                                 <label>Producto</label>
-                                <ng-select formControlName="producto" [items]="productos" bindLabel="cadenaProductos"
-                                    bindValue="producto" (change)="itemSelectedProducto($event)"
-                                    [clearable]="false"></ng-select>
-                                <span class="form-text text-danger" *ngIf="campoDetalleNoValido('producto')">Campo
-                                    obligatorio.</span>
+                                <ng-select formControlName="producto" [items]="productos" bindLabel="cadenaProducto"
+                                    (change)="itemSelectedProducto($event)" [clearable]="false"></ng-select>
                             </div>
                         </div>
                         <div class="col-sm-1">
@@ -75,7 +71,7 @@
                                 <button type="button" (click)="nuevoProducto()" class="btn btn-success">Nuevo</button>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <!-- <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="txt-cantidad">Cantidad</label>
                                 <input type="number" class="form-control" formControlName="cantidad" id="txt-cantidad"
@@ -98,16 +94,17 @@
                                 <button type="button" (click)="agregarDetalle()"
                                     class="btn btn-primary">Agregar</button>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-sm-12">
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                         <tr>
                                             <th>Producto</th>
-                                            <th>Cantidad</th>
+                                            <th style="text-align: center">Cantidad</th>
                                             <th>Precio compra</th>
-                                            <th>Precio venta</th>
+                                            <th></th>
+                                            <th style="text-align: center">Precio venta</th>
                                             <th>Total precio venta</th>
                                             <th></th>
                                         </tr>
@@ -115,11 +112,22 @@
 
                                     <tbody>
                                         <tr *ngFor="let detalle of detalles">
-                                            <td> {{ detalle.producto.nombre }} </td>
-                                            <td> {{ detalle.cantidad }} </td>
+                                            <td> {{ detalle.producto.cadenaProducto }} </td>
+
+                                            <td> <input type="number" value="{{ detalle.cantidad || 1}}"
+                                                    (input)="actualizarCantidad(detalle.producto.id, $event)" min="1"
+                                                    class="form-control" style="text-align: center"> </td>
+
                                             <td> {{ detalle.precioCompra | currency: 'PEN' }} </td>
-                                            <td> {{ detalle.precioVenta | currency: 'PEN' }} </td>
+
+                                            <td> <label>S/</label></td>
+
+                                            <td> <input type="number" value="{{ detalle.precioVenta || 1 }}"
+                                                    (input)="actualizarPrecioVenta(detalle.producto.id, $event)" min="1"
+                                                    class="form-control" style="text-align: center"> </td>
+
                                             <td> {{ detalle.totalDetalle | currency: 'PEN' }} </td>
+
                                             <td class="project-actions text-right">
 
                                                 <div class="btn-group btn-group-sm">
@@ -144,24 +152,54 @@
     </div>
     <!-- /.card-body -->
     <div class="card-footer">
-        <button type="button" (click)="submitForm()" class="btn btn-primary"> {{ labelSubmit }} </button>
+        <button type="button" data-toggle="modal" data-target="#modal-confirmar" class="btn btn-primary"> {{ labelSubmit
+            }} </button>
         <button type="button" (click)="cancelForm()" class="btn btn-default mx-2">Cancelar</button>
     </div>
 </form>
 
 <!-- <div class="row">
     <div class="col">
-        <span>Valid</span>
+
+        <span>detalles</span>
+        <pre>{{ detalles | json}}</pre>
+
+        <span> formGuiaRemision Valid</span>
         <pre>{{ formGuiaRemision.valid }}</pre>
 
-        <span>Value</span>
+        <span> formGuiaRemision Value</span>
         <pre>{{ formGuiaRemision.value | json }}</pre>
 
-        <span>Agregar detalle</span>
+        <span>formDetalle Valid</span>
         <pre>{{ formDetalle.valid }}</pre>
 
-        <span>Agregar value</span>
+        <span>formDetalle value</span>
         <pre>{{ formDetalle.value | json }}</pre>
 
     </div>
 </div> -->
+
+<!-- MODAL -->
+<div class="modal fade" id="modal-confirmar" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirmar</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Seguro de {{ labelSubmit
+                    | lowercase }} en la guía de remisión?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button (click)="submitForm()" type="button" class="btn btn-primary" data-dismiss="modal">{{ labelSubmit
+                    }}</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

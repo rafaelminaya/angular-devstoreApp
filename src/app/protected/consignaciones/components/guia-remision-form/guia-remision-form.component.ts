@@ -5,12 +5,12 @@ import {
   GuiaRemision,
   GuiaRemisionDetalle,
 } from '../../interfaces/guia-remision.interface';
-import { Producto, ProductoByMarca } from '../../interfaces/producto.interface';
+import { Marca } from '../../interfaces/marca.interface';
+import { Producto } from '../../interfaces/producto.interface';
 import { Proveedor } from '../../interfaces/proveedor.interface';
+import { MarcasService } from '../../services/marcas.service';
 import { ProductosService } from '../../services/productos.service';
 import { ProveedoresService } from '../../services/proveedores.service';
-import { Marca } from '../../interfaces/marca.interface';
-import { MarcasService } from '../../services/marcas.service';
 
 @Component({
   selector: 'app-guia-remision-form',
@@ -33,7 +33,7 @@ export class GuiaRemisionFormComponent implements OnInit {
     model.guiaRemisionDetalles.forEach((item) => {
       this.detalles.push(item);
 
-      this.detallesArray.push(this.fb.control(item, Validators.required));
+      //this.detallesArray.push(this.fb.control(item, Validators.required));
     });
   }
 
@@ -52,15 +52,18 @@ export class GuiaRemisionFormComponent implements OnInit {
   formDetalle: FormGroup = this.fb.group({
     marca: ['', [Validators.required]],
     producto: ['', [Validators.required]],
-    cantidad: [0, [Validators.required, Validators.min(1)]],
-    precioVenta: [0, [Validators.required, Validators.min(1)]],
+    cantidad: [1, [Validators.required, Validators.min(1)]],
+    precioVenta: [1, [Validators.required, Validators.min(1)]],
   });
 
   proveedores: Proveedor[] = [];
-  //productos: Producto[] = [];
-  productos: ProductoByMarca[] = [];
+  productos: Producto[] = [];
   detalles: GuiaRemisionDetalle[] = [];
   marcas: Marca[] = [];
+
+  get porcentajeComision(): number {
+    return this.formGuiaRemision.get('porcentajeComision')?.value;
+  }
 
   get detallesArray() {
     return this.formGuiaRemision.get('guiaRemisionDetalles') as FormArray;
@@ -98,7 +101,7 @@ export class GuiaRemisionFormComponent implements OnInit {
     return existe;
   }
 
-  agregarDetalle() {
+  agregarDetalle2() {
     let productoId: number = this.formDetalle.value.producto.id;
 
     // validación de la existencia del mismo producto
@@ -133,6 +136,68 @@ export class GuiaRemisionFormComponent implements OnInit {
     });
   }
 
+  agregarDetalle() {
+    this.detalles.push(this.formDetalle.value);
+  }
+
+  // método lanzado al manipular la cantidad de productos en cada item
+  actualizarCantidad(productoId: number, event: any): void {
+    // Obtebemos el valor del event, ene este caso el de la caja de texto
+    let cantidad: number = event.target.value as number;
+    // OPCIONARL - Eliminamos el item en caso la cantidad baje a cero
+    if (cantidad == 0) {
+      // this.eliminarDetalle(productoId);
+    }
+
+    // asginamos a los items, estos mismos items, manipulados por la función "map()" de JS
+    this.detalles = this.detalles.map((detalle: GuiaRemisionDetalle) => {
+      // Si el parámetro "productoId" coincide con algún "id" de entre los "detalles" actuales le asignamos la cantidad de la caja de texto
+      if (productoId === detalle.producto.id) {
+        detalle.cantidad = cantidad;
+      }
+      // Devolvemos el item con la nueva cantidad asignada, así actualiza el importe
+      return detalle;
+    });
+    console.log('items', this.detalles);
+  }
+
+  actualizarPrecioVenta(productoId: number, event: any): void {
+    let precioVenta: number = event.target.value as number;
+
+    this.detalles = this.detalles.map((detalle: GuiaRemisionDetalle) => {
+      // Si el parámetro "productoId" coincide con algún "id" de entre los "detalles" actuales le asignamos la cantidad de la caja de texto
+      if (productoId === detalle.producto.id) {
+        detalle.precioVenta = precioVenta;
+        detalle.precioCompra = this.calcularPrecioCompra(precioVenta);
+        detalle.totalDetalle = this.calcularPrecioTotalVenta(
+          detalle.cantidad,
+          detalle.precioVenta
+        );
+      }
+      // Devolvemos el item con la nueva cantidad asignada, así actualiza el importe
+      return detalle;
+    });
+  }
+
+  actualizarPreciosPorPorcentaje(event: any) {
+    console.log('porcentaje comision event', event.target.value);
+    this.detalles.forEach((item) => {
+      item.precioCompra = this.calcularPrecioCompra(item.precioVenta);
+    });
+  }
+
+  calcularPrecioCompra(precioVenta: number) {
+    let importeComision: number = precioVenta * (this.porcentajeComision / 100);
+
+    let precioCompra: number = precioVenta - importeComision;
+
+    return precioCompra;
+  }
+
+  calcularPrecioTotalVenta(precioVenta: number, total: number) {
+    return precioVenta * total;
+  }
+
   // listarProductos(): void {
   //   this.productosService.getAll().subscribe((response) => {
   //     this.productos = response;
@@ -145,6 +210,18 @@ export class GuiaRemisionFormComponent implements OnInit {
       this.formGuiaRemision.markAllAsTouched();
       return;
     }
+
+    this.detalles = this.detalles.map((detalle) => {
+      delete detalle.precioCompra;
+      delete detalle.totalDetalle;
+      return detalle;
+    });
+
+    //this.detallesArray.push(this.fb.control(this.detalles));
+
+    this.detalles.forEach((item) =>
+      this.detallesArray.push(this.fb.control(item, Validators.required))
+    );
 
     this.onSubmit.emit(this.formGuiaRemision.value);
   }
@@ -170,9 +247,38 @@ export class GuiaRemisionFormComponent implements OnInit {
   itemSelected(event: any) {
     console.log(event);
   }
+
   itemSelectedProducto(event: any) {
     console.log('itemSelectedProducto');
     console.log(event);
+
+    let productoId: number = event.id;
+
+    // validación de la existencia del mismo producto
+    if (this.existeDetalle(productoId)) {
+      Swal.fire({
+        position: 'top-right',
+        icon: 'info',
+        title: 'El producto ya estaba agregado.',
+        showConfirmButton: false,
+        timer: 3500,
+        toast: true,
+      });
+      return;
+    }
+    console.log('this.detalles1', this.detalles);
+
+    this.detalles.push(this.formDetalle.value);
+    console.log('this.detalles2', this.detalles);
+
+    this.detalles = this.detalles.map((detalle) => {
+      if (detalle.producto.id === event.id) {
+        detalle.producto.nombre = event.cadenaProducto;
+      }
+      return detalle;
+    });
+
+    console.log('this.detalles3', this.detalles);
   }
 
   itemSelectedMarca(event: any) {
@@ -192,6 +298,7 @@ export class GuiaRemisionFormComponent implements OnInit {
   }
 
   eliminarDetalle(detalle: GuiaRemisionDetalle) {
+    /*
     const index = this.detallesArray.value.findIndex(
       (item: GuiaRemisionDetalle) => item.producto.id === detalle.producto.id
     );
@@ -200,6 +307,7 @@ export class GuiaRemisionFormComponent implements OnInit {
       this.detallesArray.removeAt(index);
       console.log('this.detallesArray', this.detallesArray);
     }
+    */
 
     // re asignamos los items, con el método "filter()" de JS, todos aquellos que no coincidan con el parámetro "productoId"
     this.detalles = this.detalles.filter(

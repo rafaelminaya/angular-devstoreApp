@@ -24,6 +24,7 @@ export class ProductoListComponent implements OnInit {
       nombre: '',
       eliminado: false,
     },
+    cadenaProducto: '',
   };
   // CONSTRUCTOR
   constructor(private productosService: ProductosService) {}

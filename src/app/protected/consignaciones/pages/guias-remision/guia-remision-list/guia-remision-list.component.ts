@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { GuiaRemision } from '../../../interfaces/guia-remision.interface';
 import { GuiasRemisionService } from '../../../services/guias-remision.service';
 import { Router } from '@angular/router';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-guia-remision-list',
@@ -48,17 +49,20 @@ export class GuiaRemisionListComponent implements OnInit {
   }
 
   eliminar(id: number): void {
-    this.guiasService.delete(id).subscribe((_) => {
-      Swal.fire({
-        position: 'top-right',
-        icon: 'success',
-        title: 'Eliminado con éxito.',
-        showConfirmButton: false,
-        timer: 1500,
-        toast: true,
+    this.guiasService
+      .desprocesar(id)
+      .pipe(switchMap((_) => this.guiasService.delete(id)))
+      .subscribe((_) => {
+        Swal.fire({
+          position: 'top-right',
+          icon: 'success',
+          title: 'Eliminado con éxito.',
+          showConfirmButton: false,
+          timer: 1500,
+          toast: true,
+        });
+        this.listar();
       });
-      this.listar();
-    });
   }
 
   asignarGuia(guia: GuiaRemision): void {
