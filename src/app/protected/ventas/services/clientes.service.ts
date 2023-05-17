@@ -15,6 +15,10 @@ export class ClientesService {
   // CONSTRUCTOR
   constructor(private http: HttpClient) {}
   // MÉTODOS
+  getAllPaginatation(page: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/api/clientes/page/${page}`);
+  }
+
   getAll(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(`${this.baseUrl}/api/clientes`);
   }

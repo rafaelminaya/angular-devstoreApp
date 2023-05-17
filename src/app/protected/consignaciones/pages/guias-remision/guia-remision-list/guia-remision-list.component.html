@@ -96,7 +96,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-            Footer
+            <app-paginator *ngIf="paginador" [urlPagina]="urlPagina" [paginador]="paginador"></app-paginator>
         </div>
         <!-- /.card-footer-->
     </div>

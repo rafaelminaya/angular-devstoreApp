@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs';
 import Swal from 'sweetalert2';
 import { GuiaRemision } from '../../../interfaces/guia-remision.interface';
 import { GuiasRemisionService } from '../../../services/guias-remision.service';
-import { Router } from '@angular/router';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-guia-remision-list',
@@ -13,6 +13,8 @@ import { switchMap } from 'rxjs';
 export class GuiaRemisionListComponent implements OnInit {
   // PROPIEDADES
   guiasRemision: GuiaRemision[] = [];
+  paginador: any;
+  urlPagina: string = '/dashboard/consignaciones/guias-remision/page/';
 
   guiaRemision: GuiaRemision = {
     id: 0,
@@ -35,11 +37,30 @@ export class GuiaRemisionListComponent implements OnInit {
   // CONSTRUCTOR
   constructor(
     private guiasService: GuiasRemisionService,
-    private router: Router
+    private activatedRoute: ActivatedRoute
   ) {}
   // MÉTODOS
   ngOnInit(): void {
-    this.listar();
+    this.listarYPaginar();
+  }
+
+  listarYPaginar(): void {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number = +params.get('page')!;
+
+      //Validación para la primera página, para cuando no haya este parámetro se le asigne el valor de cero "0".
+      if (!page) {
+        page = 0;
+      }
+
+      this.guiasService.getAllPaginatation(page).subscribe((response) => {
+        this.guiasRemision = response.content;
+        this.paginador = response;
+
+        console.log('this.guiasRemision', this.guiasRemision);
+        console.log('this.paginador', this.paginador);
+      });
+    });
   }
 
   listar(): void {
@@ -61,7 +82,7 @@ export class GuiaRemisionListComponent implements OnInit {
           timer: 1500,
           toast: true,
         });
-        this.listar();
+        this.listarYPaginar();
       });
   }
 

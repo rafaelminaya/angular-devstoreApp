@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Proveedor } from '../../../interfaces/proveedor.interface';
 import { ProveedoresService } from '../../../services/proveedores.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-proveedor-list',
@@ -11,6 +12,9 @@ import { ProveedoresService } from '../../../services/proveedores.service';
 export class ProveedorListComponent implements OnInit {
   // PROPIEDADES
   proveedores: Proveedor[] = [];
+
+  paginador: any;
+  urlPagina: string = '/dashboard/consignaciones/marcas/page/';
 
   proveedor: Proveedor = {
     id: 0,
@@ -22,10 +26,32 @@ export class ProveedorListComponent implements OnInit {
     eliminado: false,
   };
   // CONSTRUCTOR
-  constructor(private proveedorService: ProveedoresService) {}
+  constructor(
+    private proveedorService: ProveedoresService,
+    private activatedRoute: ActivatedRoute
+  ) {}
   // MÉTODOS
   ngOnInit(): void {
-    this.listar();
+    this.listarYPaginar();
+  }
+
+  listarYPaginar(): void {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number = +params.get('page')!;
+
+      //Validación para la primera página, para cuando no haya este parámetro se le asigne el valor de cero "0".
+      if (!page) {
+        page = 0;
+      }
+
+      this.proveedorService.getAllPaginatation(page).subscribe((response) => {
+        this.proveedores = response.content;
+        this.paginador = response;
+
+        console.log('this.proveedores', this.proveedores);
+        console.log('this.paginador', this.paginador);
+      });
+    });
   }
 
   listar(): void {
@@ -45,7 +71,7 @@ export class ProveedorListComponent implements OnInit {
         toast: true,
       });
 
-      this.listar();
+      this.listarYPaginar();
     });
   }
 

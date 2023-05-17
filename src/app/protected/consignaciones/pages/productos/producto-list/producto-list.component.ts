@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Producto } from '../../../interfaces/producto.interface';
 import { ProductosService } from '../../../services/productos.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-producto-list',
   templateUrl: './producto-list.component.html',
@@ -10,6 +11,9 @@ import { ProductosService } from '../../../services/productos.service';
 export class ProductoListComponent implements OnInit {
   // PROPIEDADES
   productos: Producto[] = [];
+  paginador: any;
+  urlPagina: string = '/dashboard/consignaciones/productos/page/';
+
   producto: Producto = {
     id: 0,
     codigo: '',
@@ -27,10 +31,32 @@ export class ProductoListComponent implements OnInit {
     cadenaProducto: '',
   };
   // CONSTRUCTOR
-  constructor(private productosService: ProductosService) {}
+  constructor(
+    private productosService: ProductosService,
+    private activatedRoute: ActivatedRoute
+  ) {}
   // MÉTDOOS
   ngOnInit(): void {
-    this.listar();
+    this.listarYPaginar();
+  }
+
+  listarYPaginar(): void {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number = +params.get('page')!;
+
+      //Validación para la primera página, para cuando no haya este parámetro se le asigne el valor de cero "0".
+      if (!page) {
+        page = 0;
+      }
+
+      this.productosService.getAllPaginatation(page).subscribe((response) => {
+        this.productos = response.content;
+        this.paginador = response;
+
+        console.log('this.marcas', this.productos);
+        console.log('this.paginador', this.paginador);
+      });
+    });
   }
 
   listar(): void {
@@ -49,6 +75,8 @@ export class ProductoListComponent implements OnInit {
         timer: 1500,
         toast: true,
       });
+
+      this.listarYPaginar();
     });
   }
 

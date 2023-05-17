@@ -6,6 +6,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { RouterModule } from '@angular/router';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { RouterModule } from '@angular/router';
     FooterComponent,
     SidebarComponent,
     BreadcrumbsComponent,
+    PaginatorComponent,
   ],
   imports: [CommonModule, RouterModule],
   exports: [
@@ -20,6 +22,7 @@ import { RouterModule } from '@angular/router';
     FooterComponent,
     SidebarComponent,
     BreadcrumbsComponent,
+    PaginatorComponent,
   ],
 })
 export class SharedModule {}

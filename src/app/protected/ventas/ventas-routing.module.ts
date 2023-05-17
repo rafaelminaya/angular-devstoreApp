@@ -12,9 +12,11 @@ const routes: Routes = [
     path: '',
     children: [
       { path: 'boletas-venta', component: BoletaVentaListComponent },
+      { path: 'boletas-venta/page/:page', component: BoletaVentaListComponent },
       { path: 'boletas-venta/crear', component: BoletaVentaAddComponent },
       { path: 'boletas-venta/edit/:id', component: BoletaVentaEditComponent },
       { path: 'clientes', component: ClienteListComponent },
+      { path: 'clientes/page/:page', component: ClienteListComponent },
       { path: 'clientes/crear', component: ClienteAddComponent },
       { path: 'clientes/edit/:id', component: ClienteEditComponent },
       { path: '**', redirectTo: 'boletas-venta' },

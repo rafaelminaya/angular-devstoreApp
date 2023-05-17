@@ -15,6 +15,10 @@ export class MarcasService {
   // CONSTRUCTOR
   constructor(private http: HttpClient) {}
   // MÉTODOS
+  getAllPaginatation(page: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/api/marcas/page/${page}`);
+  }
+
   getAll(): Observable<Marca[]> {
     return this.http.get<Marca[]>(`${this.baseUrl}/api/marcas`);
   }

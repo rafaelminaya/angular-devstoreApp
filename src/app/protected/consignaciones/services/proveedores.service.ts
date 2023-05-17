@@ -15,6 +15,10 @@ export class ProveedoresService {
   // CONSTRUCTOR
   constructor(private http: HttpClient) {}
   // MÉTODOS
+  getAllPaginatation(page: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/api/proveedores/page/${page}`);
+  }
+
   getAll(): Observable<Proveedor[]> {
     return this.http.get<Proveedor[]>(`${this.baseUrl}/api/proveedores`);
   }

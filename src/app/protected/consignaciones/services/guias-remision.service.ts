@@ -15,6 +15,13 @@ export class GuiasRemisionService {
   // CONSTRUCTOR
   constructor(private http: HttpClient) {}
   // MÉTODOS
+
+  getAllPaginatation(page: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}/api/consignaciones/page/${page}`
+    );
+  }
+
   getAll(): Observable<GuiaRemision[]> {
     return this.http.get<GuiaRemision[]>(`${this.baseUrl}/api/consignaciones`);
   }

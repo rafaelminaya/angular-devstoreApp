@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Cliente } from '../../../interfaces/cliente.interface';
 import { ClientesService } from '../../../services/clientes.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cliente-list',
@@ -11,6 +12,8 @@ import { ClientesService } from '../../../services/clientes.service';
 export class ClienteListComponent implements OnInit {
   // PROPIEDADES
   clientes: Cliente[] = [];
+  paginador: any;
+  urlPagina: string = '/dashboard/ventas/clientes/page/';
 
   cliente: Cliente = {
     id: 0,
@@ -21,11 +24,33 @@ export class ClienteListComponent implements OnInit {
     eliminado: false,
   };
   // CONSTRUCTOR
-  constructor(private clientesService: ClientesService) {}
+  constructor(
+    private clientesService: ClientesService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   // MÉTDOOS
   ngOnInit(): void {
-    this.listar();
+    this.listarYPaginar();
+  }
+
+  listarYPaginar(): void {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number = +params.get('page')!;
+
+      //Validación para la primera página, para cuando no haya este parámetro se le asigne el valor de cero "0".
+      if (!page) {
+        page = 0;
+      }
+
+      this.clientesService.getAllPaginatation(page).subscribe((response) => {
+        this.clientes = response.content;
+        this.paginador = response;
+
+        console.log('this.clientes', this.clientes);
+        console.log('this.paginador', this.paginador);
+      });
+    });
   }
 
   listar(): void {
@@ -46,7 +71,7 @@ export class ClienteListComponent implements OnInit {
         toast: true,
       });
 
-      this.listar();
+      this.listarYPaginar();
     });
   }
 

@@ -22,6 +22,10 @@ const routes: Routes = [
         component: GuiaRemisionListComponent,
       },
       {
+        path: 'guias-remision/page/:page',
+        component: GuiaRemisionListComponent,
+      },
+      {
         path: 'guias-remision/crear',
         component: GuiaRemisionAddComponent,
       },
@@ -31,6 +35,10 @@ const routes: Routes = [
       },
       {
         path: 'proveedores',
+        component: ProveedorListComponent,
+      },
+      {
+        path: 'proveedores/page/:page',
         component: ProveedorListComponent,
       },
       {
@@ -46,6 +54,10 @@ const routes: Routes = [
         component: ProductoListComponent,
       },
       {
+        path: 'productos/page/:page',
+        component: ProductoListComponent,
+      },
+      {
         path: 'productos/crear',
         component: ProductoAddComponent,
       },
@@ -55,6 +67,10 @@ const routes: Routes = [
       },
       {
         path: 'marcas',
+        component: MarcaListComponent,
+      },
+      {
+        path: 'marcas/page/:page',
         component: MarcaListComponent,
       },
       {

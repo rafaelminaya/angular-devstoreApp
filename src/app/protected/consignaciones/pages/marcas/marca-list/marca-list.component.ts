@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Marca } from '../../../interfaces/marca.interface';
 import { MarcasService } from '../../../services/marcas.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-marca-list',
@@ -11,6 +12,8 @@ import { MarcasService } from '../../../services/marcas.service';
 export class MarcaListComponent implements OnInit {
   // PROPIEDADES
   marcas: Marca[] = [];
+  paginador: any;
+  urlPagina: string = '/dashboard/consignaciones/marcas/page/';
 
   marca: Marca = {
     id: 0,
@@ -19,11 +22,33 @@ export class MarcaListComponent implements OnInit {
   };
 
   // CONSTRUCTOR
-  constructor(private marcasService: MarcasService) {}
+  constructor(
+    private marcasService: MarcasService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   // MÉTDOOS
   ngOnInit(): void {
-    this.listar();
+    this.listarYPaginar();
+  }
+
+  listarYPaginar(): void {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number = +params.get('page')!;
+
+      //Validación para la primera página, para cuando no haya este parámetro se le asigne el valor de cero "0".
+      if (!page) {
+        page = 0;
+      }
+
+      this.marcasService.getAllPaginatation(page).subscribe((response) => {
+        this.marcas = response.content;
+        this.paginador = response;
+
+        console.log('this.marcas', this.marcas);
+        console.log('this.paginador', this.paginador);
+      });
+    });
   }
 
   listar(): void {
@@ -44,7 +69,7 @@ export class MarcaListComponent implements OnInit {
         toast: true,
       });
 
-      this.listar();
+      this.listarYPaginar();
     });
   }
 

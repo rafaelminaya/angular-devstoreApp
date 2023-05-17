@@ -5,6 +5,7 @@ import {
   BoletaVentaDetalle,
 } from '../../../interfaces/boleta-venta-interface';
 import { BoletasVentaService } from '../../../services/boletas-venta.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-boleta-venta-list',
@@ -15,6 +16,8 @@ export class BoletaVentaListComponent implements OnInit {
   //PROPIEDADES
   boletaVentaDetalles: BoletaVentaDetalle[] = [];
   boletasVenta: BoletaVenta[] = [];
+  paginador: any;
+  urlPagina: string = '/dashboard/consignaciones/marcas/page/';
 
   boletaVenta: BoletaVenta = {
     id: 0,
@@ -35,11 +38,35 @@ export class BoletaVentaListComponent implements OnInit {
     boletaVentaDetalles: [],
   };
   // CONSTRUCTOR
-  constructor(private boletasVentaService: BoletasVentaService) {}
+  constructor(
+    private boletasVentaService: BoletasVentaService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   // MÉTODOS
   ngOnInit(): void {
-    this.listar();
+    this.listarYPaginar();
+  }
+
+  listarYPaginar(): void {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number = +params.get('page')!;
+
+      //Validación para la primera página, para cuando no haya este parámetro se le asigne el valor de cero "0".
+      if (!page) {
+        page = 0;
+      }
+
+      this.boletasVentaService
+        .getAllPaginatation(page)
+        .subscribe((response) => {
+          this.boletasVenta = response.content;
+          this.paginador = response;
+
+          console.log('this.boletasVenta', this.boletasVenta);
+          console.log('this.paginador', this.paginador);
+        });
+    });
   }
 
   listar(): void {
@@ -61,7 +88,7 @@ export class BoletaVentaListComponent implements OnInit {
         toast: true,
       });
 
-      this.listar();
+      this.listarYPaginar();
     });
   }
 

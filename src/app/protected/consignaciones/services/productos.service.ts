@@ -19,6 +19,10 @@ export class ProductosService {
   // CONSTRUCTOR
   constructor(private http: HttpClient) {}
   // MÉTODOS
+  getAllPaginatation(page: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/api/productos/page/${page}`);
+  }
+
   getAll(): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.baseUrl}/api/productos`);
   }

@@ -21,6 +21,7 @@ import { MarcaFormComponent } from './components/marca-form/marca-form.component
 import { ProveedorFormComponent } from './components/proveedor-form/proveedor-form.component';
 import { ProductoFormComponent } from './components/producto-form/producto-form.component';
 import { GuiaRemisionFormComponent } from './components/guia-remision-form/guia-remision-form.component';
+import { PaginatorComponent } from 'src/app/shared/paginator/paginator.component';
 
 @NgModule({
   declarations: [

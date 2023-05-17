@@ -15,6 +15,10 @@ export class BoletasVentaService {
   // CONSTRUCTOR
   constructor(private http: HttpClient) {}
   // MÉTODOS
+  getAllPaginatation(page: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/api/ventas/page/${page}`);
+  }
+
   getAll(): Observable<BoletaVenta[]> {
     return this.http.get<BoletaVenta[]>(`${this.baseUrl}/api/ventas`);
   }
