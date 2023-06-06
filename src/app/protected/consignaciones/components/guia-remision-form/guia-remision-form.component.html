@@ -7,7 +7,8 @@
                         <div class="form-group">
                             <label>Proveedor</label>
                             <ng-select formControlName="proveedor" [items]="proveedores" bindLabel="razonComercial"
-                                (change)="itemSelected($event)" [clearable]="false"></ng-select>
+                                placeholder="Seleccione un proveedor" (change)="itemSelected($event)"
+                                [clearable]="false"></ng-select>
                             <span class="form-text text-danger" *ngIf="campoNoValido('proveedor')">Campo
                                 obligatorio.</span>
                         </div>
@@ -56,14 +57,16 @@
                             <div class="form-group">
                                 <label>Marca</label>
                                 <ng-select formControlName="marca" [items]="marcas" bindLabel="nombre"
-                                    (change)="itemSelectedMarca($event)" [clearable]="false"></ng-select>
+                                    placeholder="Seleccione una marca" (change)="itemSelectedMarca($event)"
+                                    [clearable]="false"></ng-select>
                             </div>
                         </div>
                         <div class="col-sm-6" *ngIf="productos.length !== 0">
                             <div class="form-group">
                                 <label>Producto</label>
                                 <ng-select formControlName="producto" [items]="productos" bindLabel="cadenaProducto"
-                                    (change)="itemSelectedProducto($event)" [clearable]="false"></ng-select>
+                                    placeholder="Seleccione una producto" (change)="itemSelectedProducto($event)"
+                                    [clearable]="false"></ng-select>
                             </div>
                         </div>
                         <div class="col-sm-1">

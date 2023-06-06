@@ -31,7 +31,8 @@
                                     <div class="form-group col-md-3">
                                         <label for="txt-fecha-fin">Proveedor</label>
                                         <ng-select formControlName="proveedorId" [items]="proveedores"
-                                            bindLabel="razonComercial" bindValue="id" [clearable]="false"></ng-select>
+                                            bindLabel="razonComercial" bindValue="id"
+                                            placeholder="Seleccione una proveedor" [clearable]="false"></ng-select>
                                         <span class="form-text text-danger" *ngIf="campoNoValido('proveedorId')">Campo
                                             obligatorio.</span>
                                     </div>

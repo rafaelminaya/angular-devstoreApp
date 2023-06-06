@@ -11,7 +11,7 @@
                     <div class="card-header">
 
                     </div>
-                    <!-- <app-boleta-venta-form [prodductosSeleccionados]="prodductosSeleccionados"
+                    <!-- <app-boleta-venta-form [productosSeleccionados]="productosSeleccionados"
                         (onProductoSelected)="buscarProductoSeleccionado($event)" [productoSelected]="productoSelected"
                         [productosBuscados]="productos" labelSubmit="Crear" (onDebounce)="buscarProductos($event)"
                         (onSubmit)="submit($event)" (onCancel)="cancel()">
@@ -68,6 +68,8 @@
                                                                     <span class="info-box-number"
                                                                         style="text-align: center;">
                                                                         {{ producto.precioVenta | currency:'PEN' }}
+                                                                        --- Stock: <label class="text-success">{{
+                                                                            producto.stock}}</label>
                                                                     </span>
                                                                 </div>
                                                                 <!-- /.info-box-content -->
@@ -147,7 +149,7 @@
                                                     </thead>
 
                                                     <tbody>
-                                                        <tr *ngFor="let producto of prodductosSeleccionados">
+                                                        <!-- <tr *ngFor="let producto of productosSeleccionados">
                                                             <td> {{ producto.cadenaProducto }} </td>
 
                                                             <td> <input type="number" value="1"
@@ -165,6 +167,38 @@
 
                                                                 <div class="btn-group btn-group-sm">
                                                                     <a (click)="eliminarDetalle(producto)"
+                                                                        class="btn btn-danger mx-2" data-toggle="modal"
+                                                                        data-target="#modal-eliminar"><i
+                                                                            class="fas fa-trash">
+                                                                        </i>
+                                                                        Eliminar</a>
+                                                                </div>
+
+                                                            </td>
+                                                        </tr> -->
+
+                                                        <tr *ngFor="let detalle of detalles">
+                                                            <td> {{ detalle.producto.cadenaProducto }} </td>
+
+                                                            <td> <input type="number" value="1"
+                                                                    (input)="actualizarCantidad(detalle.producto.id, $event)"
+                                                                    min="1" class="form-control"
+                                                                    style="text-align: center"> </td>
+
+                                                            <td> <label>S/</label></td>
+
+                                                            <td> {{ detalle.producto.precioVenta | currency: 'PEN'
+                                                                }}
+                                                            </td>
+
+                                                            <td> {{ detalle.producto.precioVenta | currency: 'PEN'
+                                                                }}
+                                                            </td>
+
+                                                            <td class="project-actions text-right">
+
+                                                                <div class="btn-group btn-group-sm">
+                                                                    <a (click)="eliminarDetalle(detalle.producto    )"
                                                                         class="btn btn-danger mx-2" data-toggle="modal"
                                                                         data-target="#modal-eliminar"><i
                                                                             class="fas fa-trash">

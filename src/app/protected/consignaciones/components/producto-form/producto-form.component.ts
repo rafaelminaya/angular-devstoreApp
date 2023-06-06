@@ -38,7 +38,8 @@ export class ProductoFormComponent implements OnInit {
     color: ['', [Validators.minLength(3), Validators.maxLength(255)]],
     precioCompra: ['', [Validators.min(0)]],
     precioVenta: ['', [Validators.min(0)]],
-    marca: [, Validators.required],
+    stock: [{ value: 0, disabled: true }],
+    marca: [null, Validators.required],
   });
 
   @Output() onSubmit: EventEmitter<Producto> = new EventEmitter<Producto>();

@@ -22,6 +22,7 @@ export class ProductoListComponent implements OnInit {
     color: '',
     precioCompra: 0,
     precioVenta: 0,
+    stock: 0,
     eliminado: false,
     marca: {
       id: 0,

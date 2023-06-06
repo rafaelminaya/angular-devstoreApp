@@ -42,7 +42,7 @@ export class GuiaRemisionFormComponent implements OnInit {
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
 
   formGuiaRemision: FormGroup = this.fb.group({
-    proveedor: ['', [Validators.required]],
+    proveedor: [null, [Validators.required]],
     numero: ['', [Validators.required, Validators.min(1)]],
     fechaEmision: ['', [Validators.required]],
     porcentajeComision: ['', [Validators.required]],
@@ -50,8 +50,8 @@ export class GuiaRemisionFormComponent implements OnInit {
   });
 
   formDetalle: FormGroup = this.fb.group({
-    marca: ['', [Validators.required]],
-    producto: ['', [Validators.required]],
+    marca: [null, [Validators.required]],
+    producto: [null, [Validators.required]],
     cantidad: [1, [Validators.required, Validators.min(1)]],
     precioVenta: [1, [Validators.required, Validators.min(1)]],
   });
@@ -101,6 +101,7 @@ export class GuiaRemisionFormComponent implements OnInit {
     return existe;
   }
 
+  // YA NO LO USAMOS - EN VEZ USAREMOS "agregarDetalle()"
   agregarDetalle2() {
     let productoId: number = this.formDetalle.value.producto.id;
 

@@ -38,7 +38,7 @@ export class BoletaVentaEditComponent implements OnInit {
 
   submit(boletaVenta: BoletaVenta): void {
     this.boletasVentaService
-      .anular(this.boletaVenta.id)
+      .anular(this.boletaVenta.id!)
       .subscribe((response) => {
         console.log('response', response);
 

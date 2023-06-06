@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, filter } from 'rxjs';
+import { BackendResponse } from 'src/app/protected/interfaces/backend-response.interface';
 import Swal from 'sweetalert2';
 import { GuiaRemision } from '../../../interfaces/guia-remision.interface';
 import { GuiasRemisionService } from '../../../services/guias-remision.service';
-import { switchMap } from 'rxjs';
-import { BackendResponse } from 'src/app/protected/interfaces/backend-response.interface';
 
 @Component({
   selector: 'app-guia-remision-edit',
@@ -32,8 +32,15 @@ export class GuiaRemisionEditComponent implements OnInit {
       this.id = parseInt(id);
 
       this.guiasRemisionService.get(id).subscribe((guiaRemision) => {
-        this.guiaRemision = guiaRemision;
         console.log('guiaRemision', guiaRemision);
+
+        this.guiaRemision = guiaRemision;
+
+        // Quitamos los detalles que estén eliminados
+        this.guiaRemision.guiaRemisionDetalles =
+          this.guiaRemision.guiaRemisionDetalles!.filter(
+            (detalle) => detalle.eliminado === false
+          );
       });
     });
   }

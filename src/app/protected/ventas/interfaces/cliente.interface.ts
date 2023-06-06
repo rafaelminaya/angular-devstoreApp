@@ -1,8 +1,8 @@
 export interface Cliente {
-  id: number;
+  id?: number;
   numeroDocumento: string;
   nombre: string;
   direccion: string;
-  telefono: string;
-  eliminado: boolean;
+  telefono?: string;
+  eliminado?: boolean;
 }

@@ -23,7 +23,8 @@
                 <div class="form-group">
                     <label>Marca</label>
                     <ng-select formControlName="marca" [items]="marcas" bindLabel="nombre"
-                        (change)="itemSelected($event)" [clearable]="false"></ng-select>
+                        placeholder="Seleccione una marca" (change)="itemSelected($event)"
+                        [clearable]="false"></ng-select>
                     <span class="form-text text-danger" *ngIf="campoNoValido('marca')">Campo
                         obligatorio.</span>
                 </div>
@@ -45,6 +46,14 @@
                         placeholder="Ingrese color">
                     <span class="form-text text-danger" *ngIf="campoNoValido('color')">Campo
                         obligatorio.</span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="txt-stock">Stock</label>
+                    <input type="number" class="form-control" id="txt-stock" formControlName="stock"
+                        placeholder="Ingrese stock">
+
                 </div>
             </div>
             <div class="col-sm-6">

@@ -73,7 +73,7 @@
                                     <tr *ngFor="let data of reporte">
                                         <td> {{ data.fechaEmision | date: "EEEE, dd'/'LL'/'yyyy" }} </td>
                                         <td> {{ data.numero }} </td>
-                                        <td> {{ data.eliminado }} </td>
+                                        <td> {{ data.eliminado ? 'Anulado' : 'Pagado' }} </td>
                                         <td> {{ data.clienteDni }} </td>
                                         <td> {{ data.clienteNombre }} </td>
                                         <td> {{ data.baseImponible }} </td>
